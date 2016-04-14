@@ -1,0 +1,34 @@
+Hi everyone,
+
+my name is Thanh Lai, this is Aaron Liu.
+We are developers from North49 Business Solutions.
+
+We are here today to talk about our implementation of an old Sage module that we have successfully converted into a
+web application using the new Sage 300 SDK.
+
+To begin with, I will show you what the old product is and what it does
+
+it is a dashboard that displaying an overview of orders which meet specific search criteria and providing several custom actions for the selected orders.
+
+as I mentioned earlier, the goal of this experiment is to convert the current Order Control desktop application to the web-based application
+
+
+So here is the application
+simple enough, getting search criteria to display approriate orders
+
+During and after development, we have learned that, the new Sage SDK is pretty good.
+Easy to integrate and implement (MVC pattern).
+Web services (RESTful API) support - meaning - lots of possibilities for extensions.
+Code Generation - less typing, happy developer
+AWESOME technical help - Stephen Smith's Blog & John Thomas.
+
+Beside the good parts,
+here are some struggles we have personally
+I have to rewrite the application 3 times
+first time was my development doesn't have the new SDK installed, messup assembly dlls, missing files, blow up
+second time was the naming conversion issue I have, notice that you should not name the module which happens to be one of the reserved Sage module
+for example OE, AR, IC
+
+second challenge is code generation - as I mentioned cg is good, but everything has 2 sides, this may be too much magic for beginners or non-webdevelopers to swallow
+
+Lastly, hard to convince your boss to buy Kendo UI license.
