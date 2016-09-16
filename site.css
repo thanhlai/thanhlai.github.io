@@ -13,7 +13,11 @@ html {
 .container .text-muted {
   margin: 18px 0;
 }
+button:focus {
+  outline:0;
+}
+
 /* Colors */
 .pink {
-	color: #E03740
+  color: #E03740
 }
