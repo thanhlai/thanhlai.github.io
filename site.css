@@ -11,6 +11,7 @@ html {
 }
 
 .container .text-muted {
+  font-size: smaller;
   margin: 18px 0;
 }
 button:focus {
