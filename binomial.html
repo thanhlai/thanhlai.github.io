@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Binomial Expansion</title>
+</head>
+<body style="text-align: center;">
+<br>
+<form onsubmit="return doWork()">
+  (x + y) to the power of:
+  <input type="number" name="power" min="0">
+  <input type="submit" value="expand &#9889;">
+</form>
+<br>
+<div name="result"></div>
+
+<script>
+function doWork() {
+	var power = parseInt(document.getElementsByName("power")[0].value);
+	var result = [];
+	for (var k = 0; k <= power; k++) {
+		var output = binomial(power, k);
+		if (power-k != 0) { output += "x<sup>" + (power-k) + "</sup>"; }
+		if (k != 0) { output += "y<sup>" + k + "</sup>"; }	
+		result.push(output);
+	}
+	document.getElementsByName("result")[0].innerHTML = "<hr> <h2>" + result.join(" + ") + "</h2>";
+	return false;
+}
+
+function binomial(n, k) {
+	var coeff = 1;
+	for (var x = n - k + 1; x <= n; x++) { coeff *= x; };
+	for (x = 1; x <= k; x++) { coeff /= x; };
+	coeff = Math.ceil(coeff);
+	return (coeff == 1) ? "" : coeff;
+}
+</script>
+</body>
+</html>
