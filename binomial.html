@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,35 +14,61 @@
 <input type="submit" value="&#9889; expand">
 </form>
 <br>
+
+<center>
 <div name="result"></div>
+</center>
 <script>
 function doWork() {
-	var power = parseInt(document.getElementsByName("power")[0].value);
+	var power = parseInt(document.getElementsByName('power')[0].value);
 	var result = [];
+	var pascal_triangle = [];
 	for (var k = 0; k <= power; k++) {
 		var output = binomial(power, k);
+		output = (output == 1) ? "" : output;
 		var x_power = power-k;
 		var y_power = k;
 		if (x_power != 0) {
 			x_power = (x_power == 1) ? "" : x_power;
-			output += "x<sup>" + x_power + "</sup>"; 
+			output += 'x<sup>' + x_power + '</sup>'; 
 		}
 		if (y_power != 0) {
 			y_power = (y_power == 1) ? "" : y_power;
-			output += "y<sup>" + y_power + "</sup>"; 
-		}	
+			output += 'y<sup>' + y_power + '</sup>'; 
+		}
 		result.push(output);
+		pascal_triangle.push(pascal(k));
 	}
-	document.getElementsByName("result")[0].innerHTML = "<hr> <h2>" + result.join(" + ") + "</h2>";
+	document.getElementsByName('result')[0].innerHTML = "<hr> <h2>" + result.join(" + ") + "</h2>";
+	
+	// build pascal triangle
+	result = "";
+	for (var i = 0; i < pascal_triangle.length; i++) {
+		var row = "";
+		for (var j = 0; j < pascal_triangle[i].length; j++) {
+			row += pascal_triangle[i][j] + "\t"
+		}
+		result += "\n" + row;
+	}
+	
+	document.getElementsByName('result')[0].innerHTML += '<center><pre>' + result + '</pre></center>';
+	
 	return false;
 }
-
 function binomial(n, k) {
 	var coeff = 1;
 	for (var x = n - k + 1; x <= n; x++) { coeff *= x; };
 	for (x = 1; x <= k; x++) { coeff /= x; };
 	coeff = Math.ceil(coeff);
-	return (coeff == 1) ? "" : coeff;
+	return coeff;
+}
+function pascal(n) {
+	var result = [];
+	for (var k = 0; k <= n; k++) {
+		var coeff = binomial(n, k);
+		result.push(coeff);
+	}
+	return result;
 }
 </script>
 </body>
