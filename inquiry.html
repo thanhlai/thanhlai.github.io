@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js"></script>
+  <title>Inquiry Report - North49 Business Solutions Inc.</title>
+  <style>
+	.modal {
+		top: 20%;
+	}
+	.modal-dialog {
+		width: 60%;
+		margin-left: 20%;
+	}
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <h2>Webtelligence Usage Report</h2>
+  <h3><small>Customer: <span id="customer"></span></small></h3>
+  <p><strong>Note:</strong> Invoice reports are master/detail reports with billing amounts that can be printed electronically for North49 Business Solutions Inc. customers.</p>
+  <div class="panel-group" id="accordion">
+	<!-- Monthly Invoice Report Entries go here -->
+  </div> 
+  
+  <div class="hidden-textarea-group">
+	<!-- Hiddent textarea, json objects go here -->
+  </div>
+  <p style="color: rgb(1, 52, 78); margin-bottom: -2px;"><small><small><i class="glyphicon glyphicon-asterisk"></i></small><i>MB (Megabyte): Presenting data usage, bandwidth units are in Megabyte.</i></small></p>
+  <p style="color: rgb(1, 52, 78)"><small><small><i class="glyphicon glyphicon-asterisk"></i></small><i>GB (Gigabyte): Presenting data usage, bandwidth units are in Gigabyte. 1 GB = 1024 MB.</i></small></p>
+
+  <div class="hidden-modal-group">
+  <!-- Hidden modal, append it here for display on row clicked -->
+
+  </div>
+  
+</div>
+    
+	<script>
+	var monthNames = ["January", "February", "March", "April", "May", "June",
+					  "July", "August", "September", "October", "November", "December"];		
+	var url = window.location.href;
+	var rankIndicator = 'rank=';
+	var customerIndicator = 'customer=';
+	var customer = url.substring(url.lastIndexOf(customerIndicator) + customerIndicator.length);	
+	var rank = url.substr(url.indexOf(rankIndicator) + rankIndicator.length, 1);
+
+	$(function() {
+		//$('#invoice-year').text((new Date().getFullYear()));
+		
+		ShowInvoiceReport(customer); // on load, initial view
+		
+		$('#customer').text(customer.replace(/%20/g, " "));
+		/*$('#invoice-year').datepicker( {
+			format: " yyyy",
+			viewMode: "years", 
+			minViewMode: "years",
+			endDate: '+0d'
+		}).on('changeDate', function(ev){
+			$(this).text(ev.format());
+			$(this).datepicker('hide');	
+			var year = ev.format();
+			
+			ShowInvoiceReport(customer);
+		});*/
+	});
+	
+	function ShowInvoiceReport(customer) {
+
+		$('.panel-group').empty(); // clear out
+		
+		var devGetUrl = "http://localhost:11778/Inquiry/Get";
+		var productionGetUrl = "http://time.north49.com/Inquiry/Get";
+		var getEndpointAddress = devGetUrl; // change this for deployment
+		
+		var devGetCustomerPlanDetailsUrl = "http://localhost:11778/Inquiry/GetCustomerPlanDetails";
+		var productionGetCustomerPlanDetailsUrl = "http://time.north49.com/Inquiry/GetCustomerPlanDetails";
+		var getCustomerPlanDetailsEndpointAddress = productionGetCustomerPlanDetailsUrl; // change this for deployment
+
+		customer = customer.replace('&','%26');
+
+		$.ajax({
+			type: 'GET',
+			url: getEndpointAddress + '?rank=' + rank + '&customerName=' + customer,
+			dataType: "json",
+			success: function (data) {
+				var inquiries = data.Inquiry;
+									console.log("wtf" + inquiries.length);
+				for (i = 0; i < inquiries.length; i++) {
+					var inquiry = inquiries[i];
+					
+					//console.log(JSON.stringify(inquiry));
+					//console.log(inquiry);
+										
+					var invoiceYYYYMMDD = inquiry[i].InvoiceMonth.split("/"); // get import month instead (previous invoice month)
+					//var invoiceMonth = monthNames[parseInt(invoiceYYYYMMDD[1], 10) - 1];
+							
+					
+					// foreach year instead
+					
+					/*
+					var col1 = '<div>' + 
+							   '<h4>Hosting Package Information</h4>' +
+							   '<h4><small>Band Option: ' + inquiry.BandOpt + '</small></h4>' +
+							   '<h4><small>Band Qty: ' + inquiry.BandQty + '</small></h4>' +
+							   '<h4><small>Band Rate: ' + inquiry.BandRate + '</small></h4>' +
+							   '<h4><small>Cycle: ' + inquiry.Cycle + '</small></h4>' +
+							   '<h4><small>Datacenter: ' + inquiry.Datacenter + '</small></h4>' +
+							   '<h4><small>Host Option: ' + inquiry.HostOpt + '</small></h4>' +
+							   '<h4><small>Host Qty: ' + inquiry.HostQty + '</small></h4>' +
+							   '<h4><small>Host Rate: ' + inquiry.HostRate + '</small></h4>' +
+							   '</div>';
+							   
+					var col2 = '<div>' + 
+							   '<h4>Hosting Usage & Statistics</h4>' +
+							   '<h4><small>Monthly Bandwidth: ' + inquiry.MthBandwidth + '</small></h4>' +
+							   '<h4><small>Monthly Charges: ' + inquiry.MthCharges + '</small></h4>' +
+							   '<h4><small>Monthly Database Transfer: ' + inquiry.MthDbTransfer + '</small></h4>' +
+							   '<h4><small>Monthly Order Count: ' + inquiry.MthOrderCount + '</small></h4>' +
+							   '<h4><small>Monthly Page Hits: ' + inquiry.MthPageHits + '</small></h4>' +
+							   '<h4><small>Monthly SKU Count: ' + inquiry.MthSkuCount + '</small></h4>' +
+							   '<h4><small>Monthly Storage Used: ' + inquiry.MthStorageUsed + '</small></h4>' +
+							   '<h4><small>Monthly Total Bandwidth: ' + inquiry.MthTotalBandwidth + '</small></h4>' +
+							   '</div>';
+					
+					var reportTable = '<div class="row">' + 
+									  '<div class="col-md-6">' + col1 + '</div>' +
+									  '<div class="col-md-6">' + col2 +'</div>' +
+									  '</div>';
+					*/				  
+					// var theInquiryObject = JSON.stringify(inquiry).replace(/"/g, '\'');
+					
+					var reportTable = '<div class="table-responsive">' + 
+									  '<table class="table table-bordered" id="table' + invoiceYYYYMMDD[0] +'">' +
+									  '<thead>' +
+									  '<tr>' +
+									  '<th>Invoice Month</th>' +
+									  '<th>Data <span title="Usage in Megabyte unit.">(MB)</span></th>' +
+									  '<th>DataPort Transfer <span title="Usage in Megabyte unit.">(MB)</span></th></th>' +
+									  '<th>Total Data <span title="Usage in Megabyte unit.">(MB)</span></th></th>' +
+									  '<th>Order Count</th>' +
+									  '<th>Page Hits</th>' +
+									  '<th>SKU Count</th>' +
+									  '<th>Storage Used <span title="Usage in Megabyte unit.">(MB)</span></th></th>' +
+									  '</tr>' +
+									  '</thead>' +
+									  '<tbody class="' + invoiceYYYYMMDD[0] +'">' +
+									  '</tbody>' +
+									  '</table>' +
+									  '</div>';
+					
+					var report = '<div class="panel panel-default">' + 
+								  '<div class="panel-heading">' +
+								  '<h4 class="panel-title">' +
+								  '<a data-toggle="collapse" data-parent="#accordion" href="#collapse' + i +'">' + invoiceYYYYMMDD[0] + '</a>' +
+								  '<a onclick="exportTableToCSV(' + invoiceYYYYMMDD[0] +');" class="pull-right" title="Export this year invoice." style="cursor:pointer;"><small><i style="color:cadetblue;" class="glyphicon glyphicon-export"></i></small></a>' + 
+								  '</h4>' +
+								  '</div>' +
+								  '<div id="collapse' + i + '" class="panel-collapse collapse">' +
+								  '<div class="panel-body">' +
+								  reportTable +
+								  '</div>' +
+								  '</div>' +
+								  '</div>';		  
+					
+					var hiddenTextArea = '<textarea style="display:none;" id="txt' + i +'">['+ JSON.stringify(inquiry[i]) + ']</textarea>';		
+								  
+					$('.panel-group').append(report);
+					$('.hidden-textarea-group').append(hiddenTextArea);	
+					
+					// row by month			  
+					for (j = 0; j < inquiry.length; j++) {
+						// each row has its own info data of that current month
+						// construct hidden modals here
+						var yyyyMMdd = inquiry[j].ImportMonth.split("/");
+						var yyyyMM = yyyyMMdd[0] + yyyyMMdd[1];
+						
+						var reportRow = '<tr style="cursor:pointer;" data-toggle="modal" data-target="#modal' + yyyyMM +'">' + 
+										'<td>' + monthNames[parseInt(inquiry[j].InvoiceMonth.split("/")[1], 10) - 1] + '</td>' +
+										'<td>' + Math.ceil(parseFloat(inquiry[j].MthBandwidth.replace(/,/g, ''), 10)).toLocaleString() + '</td>' +
+										'<td>' + Math.ceil(parseFloat(inquiry[j].MthDbTransfer.replace(/,/g, ''), 10)).toLocaleString() + '</td>' +
+										'<td>' + Math.ceil(parseFloat(inquiry[j].MthTotalBandwidth.replace(/,/g, ''), 10)).toLocaleString() + '</td>' +
+										'<td>' + Math.ceil(parseFloat(inquiry[j].MthOrderCount.replace(/,/g, ''), 10)).toLocaleString() + '</td>' +
+										'<td>' + Math.ceil(parseFloat(inquiry[j].MthPageHits.replace(/,/g, ''), 10)).toLocaleString() + '</td>' +
+										'<td>' + Math.ceil(parseFloat(inquiry[j].MthSkuCount.replace(/,/g, ''), 10)).toLocaleString() + '</td>' +
+										'<td>' + Math.ceil(parseFloat(inquiry[j].MthStorageUsed.replace(/,/g, ''), 10)).toLocaleString() + '</td>' +
+										'</tr>';
+						$('.' + invoiceYYYYMMDD[0]).append(reportRow);
+						
+						$.ajax({
+							type: 'GET',
+							url: getCustomerPlanDetailsEndpointAddress + '?rank=' + rank + '&customerName=' + customer + '&yyyyMM=' + yyyyMM,
+							dataType: "json",
+							async: false, // can be async if I create a new connection each time this method is called within the endpoint Service
+							success: function (data) {
+								var customerPlanDetails = data.CustomerPlanDetails;
+								//console.log(customerPlanDetails);
+								
+								var col1 = '<div>' + 
+											  '<h4>Charges:</h4>' +
+											  '<h4><small>Plan: $' + Math.ceil(parseFloat(customerPlanDetails.PlanRate.replace(/,/g, ''), 10)).toLocaleString(undefined, {minimumFractionDigits: 2}) + '</small></h4>' +
+											  '<h4><small>Data: $' + Math.ceil(parseFloat(customerPlanDetails.Bandwidth.replace(/,/g, ''), 10)).toLocaleString(undefined, {minimumFractionDigits: 2}) + '</small></h4>' +
+											  '<h4><small>Storage: $' + Math.ceil(parseFloat(customerPlanDetails.Storage.replace(/,/g, ''), 10)).toLocaleString(undefined, {minimumFractionDigits: 2}) + '</small></h4>' +
+											  '<h4><small>Total: ' + customerPlanDetails.Total + '</small></h4>' +
+											  '</div>';
+								
+								var col2 = '<div>' + 
+										   '<h4>Your plan includes:</h4>' +
+										   '<h4><small>Data: ' + Math.ceil(parseFloat(customerPlanDetails.HostBandwidth.replace(/,/g, ''), 10)).toLocaleString() + ' GB</small></h4>' +
+										   '<h4><small>Storage: ' + Math.ceil(parseFloat(customerPlanDetails.HostStorage.replace(/,/g, ''), 10)).toLocaleString() + ' GB</small></h4>' +
+										   '<h4><small>SKUs: ' + customerPlanDetails.HostSKU + '</small></h4>' +
+										   '<h4><small>Orders: ' + customerPlanDetails.HostOrder + '</small></h4>' +
+										   '</div>';
+								
+								var col3 = '<div>' + 
+										   '<h4>Additional charges:</h4>' +
+										   '<h4><small>Data: $' + customerPlanDetails.HostBandwidthOver.split("/")[0] + ' per ' + customerPlanDetails.HostBandwidthOver.split("/")[1] + '</small></h4>' +
+										   '<h4><small>Storage: $' + customerPlanDetails.HostStorageOver.split("/")[0] + ' per ' + customerPlanDetails.HostStorageOver.split("/")[1] + '</small></h4>' +
+										   '</div>';
+										   
+								var modalBody = '<div class="row">' + 
+												'<div class="col-md-4">' + col1 + '</div>' +
+												'<div class="col-md-4">' + col2 + '</div>' +
+												'<div class="col-md-4">' + col3 +'</div>' +
+												'</div>';		   
+								
+								var customerPlanDetailsModal = '<div id="modal' + yyyyMM +'" class="modal fade" role="dialog">' + 
+															   '<div class="modal-dialog">' + 
+															   '<div class="modal-content">' +
+															   '<div class="modal-header">' +
+															   '<button type="button" class="close" data-dismiss="modal">&times;</button>' +
+															   '<h4 class="modal-title">Webtelligence Hosting Plan - ' + customer.replace(/%20/g, " ") + '</h4>' +
+															   '<h4 style="margin-bottom:0px;"><small>Usage Month: ' + customerPlanDetails.UsageMonth + '</small></h4>' +
+															   '</div>' +
+															   '<div class="modal-body">' +
+															   modalBody +
+															   '</div>' +
+															   '<div class="modal-footer">' +
+															   '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>' +
+															   '</div>' +
+															   '</div>' +
+															   '</div>' +
+															   '</div>';
+								$('.hidden-modal-group').append(customerPlanDetailsModal);			   
+							}
+						});
+					}	
+
+					$('th').css('font-weight', '100');
+					$('th').css('text-align','center');	
+					$('th').css('color','#01344E');		
+					$('td').css('text-align','center');	
+					formatTable();				
+				}
+			},
+			error: function() {
+				alert("Could not find plan details for this customer.");
+			}
+		});		
+	}
+	
+	
+	function exportTableToCSV(tableName) {
+		var filename = "InvoiceReport_" + tableName + "_" + customer.replace(/%20/g, " ").replace(/ /g,"_");;
+		
+		var $rows = $('#table' + tableName).find('tr:has(td),tr:has(th)'),
+
+			// Temporary delimiter characters unlikely to be typed by keyboard
+			// This is to avoid accidentally splitting the actual contents
+			tmpColDelim = String.fromCharCode(11), // vertical tab character
+			tmpRowDelim = String.fromCharCode(0), // null character
+
+			// actual delimiter characters for CSV format
+			colDelim = '","',
+			rowDelim = '"\r\n"',
+
+			// Grab text from table into CSV formatted string
+			csv = '"' + $rows.map(function (i, row) {
+				var $row = $(row), $cols = $row.find('td,th');
+
+				return $cols.map(function (j, col) {
+					var $col = $(col), text = $col.text();
+
+					return text.replace(/"/g, '""'); // escape double quotes
+
+				}).get().join(tmpColDelim);
+
+			}).get().join(tmpRowDelim)
+				.split(tmpRowDelim).join(rowDelim)
+				.split(tmpColDelim).join(colDelim) + '"',
+			// Data URI
+			csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
+
+			//console.log(csv);
+
+			/*if (window.navigator.msSaveBlob) { // IE 10+
+				//alert('IE' + csv);
+				window.navigator.msSaveOrOpenBlob(new Blob([csv], {type: "text/plain;charset=utf-8;"}), "csvname.csv")
+			} else {
+				$(this).attr({ 'download': filename, 'href': csvData, 'target': '_blank' }); 
+			}*/
+			
+		var uri = 'data:text/csv;charset=utf-8,' + escape(csv);
+		
+		var link = document.createElement("a");    
+		link.href = uri;
+		
+		link.style = "visibility:hidden";
+		link.download = filename + ".csv";
+		
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+	}
+
+	function formatTable() {
+		$("td:contains('NaN')").html("0");
+	}
+
+	</script>
+</body>
+</html>
