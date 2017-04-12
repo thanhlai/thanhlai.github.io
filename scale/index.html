@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>Banana: Amazon, eBay, Shoptify images scaling</title>
+		<link rel="shortcut icon" href="favicon.ico"/>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+		<style>
+			#canvas {
+			background-color: #f5f5f5;
+			border: 1px solid #e3e3e3; 
+			border-radius: 4px;
+			}
+			#file, #draft {
+			display:none;
+			}
+			.btn:hover {
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<br/>
+		<div class="">
+			<div class="row">
+				<div class="col-8">
+					<canvas id="canvas"></canvas>		
+					<canvas id="draft"></canvas>
+					
+				</div>
+				<div class="col-4">
+				
+					<div class="form-group">
+						<select class="custom-select" id="background">
+							<option selected disabled>Select a background image</option>
+							<option value="forearm">Forearm</option>
+							<option value="chest">Chest</option>
+							<!-- <option value="hand">Hand</option> -->
+							<option value="human">Human</option>
+							<option value="banana">Banana</option>
+						</select>
+					</div>
+				
+					<label class="btn btn-secondary"><i class="fa fa-upload" aria-hidden="true"></i>
+					<input id="file" type="file">
+					 Choose your item's image...
+					</label>				
+							
+					<div class="form-group">
+						<!-- <button type="button" class="btn btn-secondary" id="transparent"><i class="fa fa-magic" aria-hidden="true"></i> Make transparent</button> -->
+					</div>
+					
+					<!-- <div class="form-group">							 -->
+						<!-- <button type="button" class="btn btn-secondary" id="h"><i class="fa fa-arrows-h" aria-hidden="true"></i> Horizontal</button> -->
+						<!-- <button type="button" class="btn btn-secondary" id="v"><i class="fa fa-arrows-v" aria-hidden="true"></i> Vertical</button> -->
+					<!-- </div>			 -->
+					
+					<!-- <button type="button" class="btn btn-secondary" id="clear"><i class="fa fa-eraser" aria-hidden="true"></i> Clear all</button> -->
+					
+					<div class="form-group">
+						<button type="button" class="btn btn-secondary" id="delete"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+						<button type="button" class="btn btn-outline-success" id="save"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+					</div>
+							
+					
+				</div>
+			</div>
+		</div>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.7.9/fabric.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+		<script>
+			var canvasWidth = $('#canvas').closest('div').width();
+			var canvasHeight = $(window).height() * 0.7;
+			var canvas = new fabric.Canvas('canvas', {width : canvasWidth, height: canvasHeight});
+			
+			$('#background').change(function() {
+				
+				var background = 'background/' + $(this).val() + '.png';
+				var image = new Image();
+				image.src = background;
+				image.onload = function () {
+					var canvasImage = new fabric.Image(image);
+					canvas.add(canvasImage);
+				};
+				
+				//canvas.setBackgroundImage(background, canvas.renderAll.bind(canvas), {backgroundImageStretch: false});
+			});
+			
+			$('#file').change(function() {
+				var input = this;
+				if (input.files && input.files[0]) {
+					var reader = new FileReader();
+
+					reader.onload = function (e) {
+						var image = new Image();
+						image.src = e.target.result;
+						image.onload = function () {
+							var canvasImage = new fabric.Image(image);
+							canvas.add(canvasImage);
+						};
+					}
+
+					reader.readAsDataURL(input.files[0]);
+				}
+				this.value=null;
+			});
+			
+			$('#delete').click(function(){
+				if (canvas.getActiveObject() != null && confirm("Are you sure you want to delete the selected image?")) {
+					canvas.getActiveObject().remove();
+				}
+			});
+			
+			$('#clear').click(function(){
+				canvas.clear();
+			});
+			
+			$('#transparent').click(function(){
+			
+				var selectedImage = canvas.getActiveObject();
+				var image = new Image();
+				image.src = selectedImage._originalElement.currentSrc;
+				var objectCanvas = document.createElement('canvas');
+				console.log(objectCanvas);
+				objectCanvas.width = image.width;
+				objectCanvas.height = image.height;
+						
+				var context = objectCanvas.getContext("2d");
+				context.drawImage(image, 0, 0);
+				
+				var color = context.getImageData(0,0,1,1).data;
+					
+				var image = context.getImageData(0, 0, context.canvas.width, context.canvas.height);
+				image = makeTransparent(image, color);
+						
+				var c = document.getElementById("draft");
+				c.width = image.width; // selectedImage.getWidth();
+				c.height = image.height; // selectedImage.getHeight();
+				var ctx = c.getContext("2d");	
+				
+				ctx.putImageData(image, 0, 0);
+				
+				fabric.Image.fromURL(c.toDataURL(), function(image) {
+					canvas.add(image);		
+					canvas.renderAll();
+				});
+
+				
+			});
+			
+			$('#save').click(function(){
+				canvas.deactivateAll().renderAll();
+				if (!fabric.Canvas.supports('toDataURL')) {
+				  alert('This browser doesn\'t provide means to serialize canvas to an image');
+				}
+				else {
+				  window.open(canvas.toDataURL('png'));
+				}
+			});
+			
+
+			
+			function makeTransparent(image, color) {
+				var imageData = image.data;			
+				for (var i = 0; i < imageData.length; i += 4) {
+					if (imageData[i] === color[0] && imageData[i+1] === color[1] && imageData[i+2] === color[2]){
+						imageData[i + 3] = 0;
+					}
+				}
+				
+				return image;
+			}
+			
+		</script>
+	</body>
+</html>
