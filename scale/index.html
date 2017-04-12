@@ -109,6 +109,12 @@
 				this.value=null;
 			});
 			
+			$('html').keyup(function(e){
+				if(e.keyCode == 46) {
+					$('#delete').click();
+				}
+			});
+			
 			$('#delete').click(function(){
 				if (canvas.getActiveObject() != null && confirm("Are you sure you want to delete the selected image?")) {
 					canvas.getActiveObject().remove();
