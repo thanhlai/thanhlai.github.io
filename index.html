@@ -62,13 +62,13 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
 		<script>
 		$(document).ready(function() {
-			loadJSON(function(response) {
+			loadJSON('projects.json', function(response) {
 			    console.log(JSON.parse(response));
 			 });
-			 function loadJSON(callback) {   
+			 function loadJSON(file, callback) {   
 			    var xobj = new XMLHttpRequest();
 				xobj.overrideMimeType("application/json");
-			    xobj.open('GET', 'projects.json', true);
+			    xobj.open('GET', file, true);
 			    xobj.onreadystatechange = function () {
 				  if (xobj.readyState == 4 && xobj.status == "200") {
 				    callback(xobj.responseText);
