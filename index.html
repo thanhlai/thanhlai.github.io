@@ -61,10 +61,21 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
 		<script>
-		$( document ).ready(function() {
-			$.getJSON("projects.json", function(json) {
-			    console.log(json);
-			});
+		$(document).ready(function() {
+			loadJSON(function(response) {
+			    console.log(JSON.parse(response));
+			 });
+			 function loadJSON(callback) {   
+			    var xobj = new XMLHttpRequest();
+				xobj.overrideMimeType("application/json");
+			    xobj.open('GET', 'projects.json', true);
+			    xobj.onreadystatechange = function () {
+				  if (xobj.readyState == 4 && xobj.status == "200") {
+				    callback(xobj.responseText);
+				  }
+			    };
+			    xobj.send(null);  
+			 }
 		});
 
 		</script>
