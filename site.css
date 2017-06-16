@@ -22,6 +22,6 @@ button:focus {
 .pink {
   color: #E03740
 }
-.img-center {
-	margin: 0 auto;
+.projects {
+  border: 3px solid #ededed;
 }
