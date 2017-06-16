@@ -47,13 +47,17 @@
 	<body>
 		
 		
-		<h2>Under maintenance, please come back later.</h2>
+		<div class="container">
+			<h3>projects</h3>
+			<div id="projects">
+			</div>
+		</div>
 		
 		
 		
 		<footer class="footer">
 			<div class="container">
-				<p class="text-muted">Made with <i class="ion-ios-heart pink" aria-hidden="true"></i> in Vancouver, BC.</p>
+				<p class="text-muted">made with <i class="ion-ios-heart pink" aria-hidden="true"></i> in Vancouver, BC.</p>
 			</div>
 		</footer>
 		<!-- jQuery first, then Tether, then Bootstrap JS. -->
@@ -64,6 +68,16 @@
 		$(document).ready(function() {
 			loadJSON('projects.json', function(response) {
 			    console.log(JSON.parse(response));
+				
+				// render projects
+				for (var i = 0; i < response.length; i++) {
+					var project = '<div class="col-lg-4 col-sm-6 text-center">';
+					project += '<img class="img-circle img-responsive img-center" src="' + response[i].logo + '">';
+					project += '</div>';
+					
+					$('#projects').append(project);
+				}
+				
 			 });
 			 function loadJSON(file, callback) {   
 			    var xobj = new XMLHttpRequest();
