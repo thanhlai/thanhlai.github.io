@@ -2,11 +2,13 @@
 {
   "name" : "banana",
   "description": "Amazon, eBay, Shopify images scaling.",
+  "logo": "banana.png",
   "date" : "March 2017"
 },
 {
   "name" : "cherry",
   "description": "design & build x86 Windows applications.",
+  "logo": "cherry.png",
   "date" : "June 2017"
 }
 ]
