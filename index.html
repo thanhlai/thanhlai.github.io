@@ -68,11 +68,11 @@
 		$(document).ready(function() {
 			loadJSON('projects.json', function(response) {
 			    console.log(JSON.parse(response));
-				
+				var projects = JSON.parse(response);
 				// render projects
-				for (var i = 0; i < response.length; i++) {
+				for (var i = 0; i < projects.length; i++) {
 					var project = '<div class="col-lg-4 col-sm-6 text-center">';
-					project += '<img class="img-circle img-responsive img-center" src="' + response[i].logo + '">';
+					project += '<img class="img-circle img-responsive img-center" src="' + projects[i].logo + '">';
 					project += '</div>';
 					
 					$('#projects').append(project);
