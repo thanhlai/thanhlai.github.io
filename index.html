@@ -72,7 +72,9 @@
 				// render projects
 				for (var i = 0; i < projects.length; i++) {
 					var project = '<div class="col-lg-4 col-sm-6 text-center">';
-					project += '<img class="img-circle img-responsive img-center" width="64" src="' + projects[i].logo + '">';
+					project += '<img class="img-responsive img-center" width="64" src="' + projects[i].logo + '">';
+					project += '<h3>' + projects[i].name + ' <small></small> </h3>';
+					project += '<p>' +  projects[i].description + '</p>';
 					project += '</div>';
 					
 					$('#projects').append(project);
