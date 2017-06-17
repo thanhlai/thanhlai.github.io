@@ -12,9 +12,9 @@
   "date" : "June 2017"
 },
 {
-  "name" : "mango",
+  "name" : "pear",
   "description": "queryable JSON data management studio.",
-  "logo": "mango.png",
+  "logo": "pear.png",
   "date" : "July 2017"
 }
 ]
