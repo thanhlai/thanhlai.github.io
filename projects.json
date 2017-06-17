@@ -10,5 +10,11 @@
   "description": "design & build x86 Windows applications.",
   "logo": "cherry.png",
   "date" : "June 2017"
+},
+{
+  "name" : "mango",
+  "description": "queryable JSON data management studio.",
+  "logo": "mango.png",
+  "date" : "July 2017"
 }
 ]
