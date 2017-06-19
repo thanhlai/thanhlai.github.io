@@ -3,18 +3,21 @@
   "name" : "banana",
   "description": "Amazon, eBay, Shopify images scaling.",
   "logo": "banana.png",
+  "url": "/scale",
   "date" : "March 2017"
 },
 {
   "name" : "cherry",
   "description": "design & build x86 Windows applications.",
   "logo": "cherry.png",
+  "url": "/cherry",
   "date" : "June 2017"
 },
 {
   "name" : "pear",
   "description": "queryable JSON data management studio.",
   "logo": "pear.png",
+  "url": "/pear",
   "date" : "July 2017"
 }
 ]
