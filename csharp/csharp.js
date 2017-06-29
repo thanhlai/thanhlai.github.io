@@ -4,13 +4,8 @@ var regex = /(.*public\s+)(.*)(\s+{ get; set; }.*)/;
 
 $('#codeTextarea').bind('input change', function() {
     extract(this.value);
+    transform();
 });
-
-$('#generateButton').on('click', function() {
-    
-  transform();
-});
-
 
 function extract(text) {
     
@@ -55,7 +50,7 @@ function extract(text) {
 }
 
 function transform() {
-    // get single record by key(s)
+    // get record(s) by key(s)
     var keys = [];
     var code = 'public bool Get(';
     for (var i = 0; i < model.properties.length; i++) {
@@ -77,5 +72,6 @@ function transform() {
     code += conditions.join(" AND ") + ';"';
     
     code += '\n}';
-    console.log(code);
+    
+    
 }
