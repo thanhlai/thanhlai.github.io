@@ -50,6 +50,15 @@ function extract(text) {
 }
 
 function transform() {
+    
+    if (!model.name || model.properties.length == 0) {
+        $('#getTextarea').val("");
+        $('#addTextarea').val("");
+        $('#updateTextarea').val("");
+        $('#deleteTextarea').val("");
+        return;
+    }
+    
     // get record(s) by key(s).
     var keys = [];
     var code = 'public IEnumerable<' + model.name + '> Get(';
