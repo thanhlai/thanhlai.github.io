@@ -73,5 +73,5 @@ function transform() {
     
     code += '\n}';
     
-    
+    $('#getTextarea').val(code);
 }
