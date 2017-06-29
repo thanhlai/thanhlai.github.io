@@ -17,11 +17,12 @@
 		<div class="row content">
 			<div class="col-md-8">
 				<div class="form-group">
-					<textarea class="form-control" id="exampleTextarea" rows="8" placeholder="copy & paste model class here..."></textarea>
+					<textarea class="form-control" id="codeTextarea" rows="8" placeholder="copy & paste model class here..."></textarea>
 				</div>
-				<button class="btn btn-success" onclick="generate();">generate</button>
+				<button class="btn btn-primary" id="generateButton">Generate</button>
 			</div>
 			<div class="col-md-4">
+				<div id="properties">
 				<div class="form-check">
 					<label class="form-check-label">
 					<input class="form-check-input" type="checkbox" value="">
@@ -40,21 +41,13 @@
 					Property3Name
 					</label>
 				</div>
+				</div>
 			</div>
 		</div>
 		<br/>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
-		<script>
-			"use strict"
-			var model = function() {
-			  
-			  return "";
-			}
-			function generate() {
-			  
-			}
-		</script>
+		<script src="csharp.js"></script>
 	</body>
 </html>
