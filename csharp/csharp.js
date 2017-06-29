@@ -25,7 +25,7 @@ function extract(text) {
        var propertyName = lines[i].replace(regex, "$2");
           
        if (propertyName.indexOf(" class ") !== -1) {
-            model.name = propertyName.replace(/^\s+|\s+$/g, '').match(/class\s(\w*)/, '')[1];
+            model.name = propertyName.trim().match(/class\s(\w*)/, '')[1];
             continue;
        }
           
