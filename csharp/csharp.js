@@ -61,7 +61,7 @@ function transform() {
     // get single record by key(s)
     var keys = [];
     var code = 'public bool Get(';
-    for (var i = 0; i < model.properties; i++) {
+    for (var i = 0; i < model.properties.length; i++) {
         var property = model.properties[i];
         if (property.isKey) {
             keys.push(property.type + " " + property.name);
