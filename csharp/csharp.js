@@ -2,9 +2,22 @@
 
 var regex = /(.*public\s+)(.*)(\s+{ get; set; }.*)/;
 
-$("#codeTextarea").bind('paste', function(e) {
-    var code = e.originalEvent.clipboardData.getData('text');
-    
+//$("#codeTextarea").bind('paste', function(e) {
+    //var code = e.originalEvent.clipboardData.getData('text');
+    //extract(code);   
+ // }
+//})
+    $("#codeTextarea").bind('input propertychange', function() {
+    extract(this.value);
+});
+
+$('#generateButton').on('click', function() {
+    alert('doing work')
+  
+});
+
+
+function extract(code) {
     $('#properties').empty();
     
      var lines = code.split('\n');
@@ -31,10 +44,4 @@ $("#codeTextarea").bind('paste', function(e) {
       property += '</div>';
       
       $('#properties').append(property);
-  }
-});
-
-$('#generateButton').on('click', function() {
-    alert('doing work')
-  
-});
+}
