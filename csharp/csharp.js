@@ -52,7 +52,7 @@ function extract(text) {
 function transform() {
     // get record(s) by key(s)
     var keys = [];
-    var code = 'public bool Get(';
+    var code = 'public IEnumerable<' + model.name + '> Get(';
     for (var i = 0; i < model.properties.length; i++) {
         var property = model.properties[i];
         if (property.isKey) {
