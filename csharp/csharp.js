@@ -13,7 +13,7 @@ $("#codeTextarea").bind('paste', function(e) {
                
        var propertyName = lines[i].replace(regex, "$2");
           
-       if (propertyName.indexOf(" class ") !== -1 || letters.test(propertyName)) {
+       if (propertyName.indexOf(" class ") !== -1 || !letters.test(propertyName)) {
             continue;
        }
           
