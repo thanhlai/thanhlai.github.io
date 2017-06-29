@@ -30,7 +30,7 @@ function extract(text) {
        var propertyName = lines[i].replace(regex, "$2");
           
        if (propertyName.indexOf(" class ") !== -1) {
-            var matches = /class(.*?) /g.exec(propertyName);
+            var matches = propertyName.match(/class\s(\w*)/, '');
             if(matches.length > 1) {
                 model.name = matches[1];
             }
