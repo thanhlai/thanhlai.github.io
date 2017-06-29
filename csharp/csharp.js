@@ -2,12 +2,7 @@
 var model = new Object();
 var regex = /(.*public\s+)(.*)(\s+{ get; set; }.*)/;
 
-//$("#codeTextarea").bind('paste', function(e) {
-    //var code = e.originalEvent.clipboardData.getData('text');
-    //extract(code);   
- // }
-//})
-    $('#codeTextarea').bind('input change', function() {
+$('#codeTextarea').bind('input change', function() {
     extract(this.value);
 });
 
@@ -20,9 +15,9 @@ $('#generateButton').on('click', function() {
 function extract(text) {
     
     model = new Object();
-    model.name = "ModelName";
     model.properties = [];
     $('#properties').empty();
+    
     
      var lines = text.split('\n');
       for(var i = 0;i < lines.length;i++){
@@ -30,10 +25,7 @@ function extract(text) {
        var propertyName = lines[i].replace(regex, "$2");
           
        if (propertyName.indexOf(" class ") !== -1) {
-            var matches = propertyName.match(/class\s+([^\s]+/, '');
-            if(matches.length > 1) {
-                model.name = matches[1];
-            }
+            model.name = propertyName.match(/class\s(\w*)/, '')[1];
             continue;
        }
           
