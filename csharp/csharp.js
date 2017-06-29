@@ -7,7 +7,7 @@ var regex = /(.*public\s+)(.*)(\s+{ get; set; }.*)/;
     //extract(code);   
  // }
 //})
-    $("#codeTextarea").bind('input change', function() {
+    $('#codeTextarea').bind('input change', function() {
     extract(this.value);
 });
 
@@ -44,4 +44,5 @@ function extract(code) {
       property += '</div>';
       
       $('#properties').append(property);
+}
 }
