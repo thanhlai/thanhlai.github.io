@@ -4,10 +4,9 @@ var letters = /^[0-9a-zA-Z]+$/;
 
 $("#codeTextarea").bind('paste', function(e) {
     var code = e.originalEvent.clipboardData.getData('text');
-    if (!code) {
-         $('#properties').empty();
-        return;
-    }
+    
+    $('#properties').empty();
+    
      var lines = code.split('\n');
       for(var i = 0;i < lines.length;i++){
        
