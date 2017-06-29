@@ -16,8 +16,12 @@ $("#codeTextarea").bind('paste', function(e) {
             continue;
        }
           
-       var propertyType = propertyName.split("\\s+")[0];
-       propertyName = propertyName.split("\\s+")[1];
+       var propertyType = propertyName.split(/\s+/g)[0];
+       propertyName = propertyName.split(/\s+/g)[1];
+          
+       if (!propertyType || !propertyName) {
+        continue;
+       }
           
       var property = '<div class="form-check">';
       property += '<label class="form-check-label">';
