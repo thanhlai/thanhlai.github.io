@@ -7,6 +7,9 @@
 		.content {
 		padding-top: 2rem;
 		}
+		div p {
+			margin-bottom:0;
+		}
 	</style>
 	<body class="container">
 		<nav class="navbar navbar-light bg-faded">
@@ -15,35 +18,34 @@
 			</a>
 		</nav>
 		<div class="row content">
-			<div class="col-md-8">
+			<div class="col-md-6">
 				<p>Model class:</p>
 				<div class="form-group">
 					<textarea class="form-control" id="codeTextarea" rows="8" placeholder="copy & paste model class here..."></textarea>
 				</div>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<p>Specify key(s):</p>
 				<div id="properties">
 				</div>
 			</div>
 		</div>
-		<br/>
 		
 		<div class="row">
 			<div class="col-md-6">
-			<p>GET</p>
+			<p><span class="badge badge-info">GET</span></p>
 			<textarea class="form-control" id="getTextarea" rows="8" disabled></textarea>
 			</div>
 			<div class="col-md-6">
-			<p>ADD</p>
+			<p><span class="badge badge-success">ADD</span></p>
 			<textarea class="form-control" id="addTextarea" rows="8" disabled></textarea>
 			</div>
 			<div class="col-md-6">
-			<p>UPDATE</p>
+			<p><span class="badge badge-primary">UPDATE</span></p>
 			<textarea class="form-control" id="updateTextarea" rows="8" disabled></textarea>
 			</div>
 			<div class="col-md-6">
-			<p>DELETE</p>
+			<p><span class="badge badge-danger">DELETE</span></p>
 			<textarea class="form-control" id="deleteTextarea" rows="8" disabled></textarea>
 			</div>
 		</div>
