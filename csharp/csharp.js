@@ -1,7 +1,6 @@
 "use strict"
 
 var regex = /(.*public\s+)(.*)(\s+{ get; set; }.*)/;
-var letters = /^[0-9a-zA-Z]+$/;
 
 $("#codeTextarea").bind('paste', function(e) {
     var code = e.originalEvent.clipboardData.getData('text');
@@ -13,9 +12,12 @@ $("#codeTextarea").bind('paste', function(e) {
                
        var propertyName = lines[i].replace(regex, "$2");
           
-       if (propertyName.indexOf(" class ") !== -1 || !letters.test(propertyName)) {
+       if (propertyName.indexOf(" class ") !== -1) {
             continue;
        }
+          
+       var propertyType = propertyName.split("\\s+")[0];
+       propertyName = propertyName.split("\\s+")[1];
           
       var property = '<div class="form-check">';
       property += '<label class="form-check-label">';
