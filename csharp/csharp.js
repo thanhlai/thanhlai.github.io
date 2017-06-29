@@ -7,13 +7,13 @@ $("#codeTextarea").bind('paste', function(e) {
     
      var lines = code.split('\n');
       for(var i = 0;i < lines.length;i++){
-       
-       if (lines.indexOf(" class ") !== -1) {
-            continue;
-       }
-          
+                
        var regex = /(.*public\s+)(.*)(\s+{ get; set; }.*)/;
        var propertyName = lines[i].replace(regex, "$2");
+          
+       if (propertyName.indexOf(" class ") !== -1) {
+            continue;
+       }
           
       var property = '<div class="form-check">';
       property += '<label class="form-check-label">';
