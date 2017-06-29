@@ -1,17 +1,19 @@
 "use strict"
 
+var regex = /(.*public\s+)(.*)(\s+{ get; set; }.*)/;
+var letters = /^[0-9a-zA-Z]+$/;
+
 $("#codeTextarea").bind('paste', function(e) {
     var code = e.originalEvent.clipboardData.getData('text');
     
-    console.log("running");
+    $('#properties').empty();
     
      var lines = code.split('\n');
       for(var i = 0;i < lines.length;i++){
-                
-       var regex = /(.*public\s+)(.*)(\s+{ get; set; }.*)/;
+               
        var propertyName = lines[i].replace(regex, "$2");
           
-       if (propertyName.indexOf(" class ") !== -1) {
+       if (propertyName.indexOf(" class ") !== -1 || letters.test(propertyName)) {
             continue;
        }
           
