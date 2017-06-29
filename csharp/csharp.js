@@ -50,7 +50,7 @@ function extract(text) {
 }
 
 function transform() {
-    // get record(s) by key(s)
+    // get record(s) by key(s).
     var keys = [];
     var code = 'public IEnumerable<' + model.name + '> Get(';
     for (var i = 0; i < model.properties.length; i++) {
@@ -71,7 +71,19 @@ function transform() {
     }
     code += conditions.join(" AND ") + ';"';
     
-    code += '\n}';
-    
+    code += '\n}';  
     $('#getTextarea').val(code);
+    
+    // add record(s).
+    code = 'INSERT INTO [' + model.name + '] (';
+    
+    $('#addTextarea').val(code);
+    
+    // update record(s).
+    code = 'UPDATE [' + model.name + ']';
+    $('#updateTextarea').val(code);
+    
+    // delete record(s)
+    code = 'DELETE FROM [' + model.name + ']';
+    $('#deleteTextarea').val(code);
 }
