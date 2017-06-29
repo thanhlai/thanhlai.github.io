@@ -10,7 +10,7 @@ $("#codeTextarea").bind('paste', function(e) {
      var lines = code.split('\n');
       for(var i = 0;i < lines.length;i++){
        
-       if (lines.indexOf(" class ") !== -1) {
+       if (lines.indexOf(" class ") === -1) {
             continue;
        }
           
