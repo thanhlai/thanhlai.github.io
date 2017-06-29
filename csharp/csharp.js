@@ -20,6 +20,7 @@ $('#generateButton').on('click', function() {
 function extract(text) {
     
     model = new Object();
+    model.name = "ModelName";
     model.properties = [];
     $('#properties').empty();
     
@@ -32,10 +33,6 @@ function extract(text) {
             var matches = /class(.*?) /g.exec(propertyName);
             if(matches.length > 1) {
                 model.name = matches[1];
-            }
-            else {
-                // Not found
-                model.name = "ModelName";
             }
             continue;
        }
