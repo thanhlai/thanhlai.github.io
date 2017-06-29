@@ -29,6 +29,14 @@ function extract(text) {
        var propertyName = lines[i].replace(regex, "$2");
           
        if (propertyName.indexOf(" class ") !== -1) {
+            var matches = /class(.*?) /g.exec(propertyName);
+            if(matches.length > 1) {
+                model.name = matches[1];
+            }
+            else {
+                // Not found
+                model.name = "ModelName";
+            }
             continue;
        }
           
@@ -67,10 +75,18 @@ function transform() {
             keys.push(property.type + " " + property.name);
         }
     }
-    code += keys.join(",");
+    code += keys.join(", ");
     code += ') {';
     
+    code += '\n \tvar query = "SELECT * FROM [' + model.name + '] WHERE ';
     
-    code += '}';
+    var conditions = [];
+    for (var i = 0; i < keys.length; i++) {
+        var keyName = keys[i].split(/\s+/g)[1];
+        conditions.push('[' + keyName + '] = @' + keyName);
+    }
+    code += conditions.join(" AND ") + ';"';
+    
+    code += '\n}';
     console.log(code);
 }
