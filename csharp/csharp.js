@@ -30,12 +30,12 @@ function extract(text) {
                 var property = new Object();
                 property.type = dataType;
                 property.name = line.slice(line.indexOf(dataType) + dataType.length + 1).split(' ')[0];
-                property.isKey = false;
+                property.isKey = true;
                 model.properties.push(property);
 
                 $('#properties').append('<div class="form-check">' +
                                             '<label class="form-check-label">' +
-                                                '<input class="form-check-input" type="checkbox" onchange="transform();" value="' + property.name +  '"> ' + property.name +
+                                                '<input class="form-check-input" type="checkbox" checked onchange="transform();" value="' + property.name +  '"> ' + property.name +
                                             '</label>' +
                                         '</div>');
             }
