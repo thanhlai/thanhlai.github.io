@@ -1,7 +1,7 @@
 "use strict"
 var model = new Object();
 var csharpDataTypes = ["bool", "byte", "char", "decimal", "double", "enum", "float", "int", "long", "sbyte", "short", "object", "string", "uint", "ulong", "ushort"];
-var csharpClass = " class ";
+var csharpClass = "class";
 
 $('#codeTextarea').bind('input change', function() {
     extract(this.value);
@@ -19,8 +19,8 @@ function extract(text) {
 
         var line = lines[i].replace(/\s+/g, " ");
 
-        if (line.indexOf(csharpClass) !== -1) {
-            model.name = line.slice(line.indexOf(csharpClass) + csharpClass.length).split(' ')[0];;
+        if (line.toLowerCase().indexOf(csharpClass) !== -1) {
+            model.name = line.slice(line.toLowerCase().indexOf(csharpClass) + csharpClass.length).split(' ')[0];;
             continue;
         }
 
