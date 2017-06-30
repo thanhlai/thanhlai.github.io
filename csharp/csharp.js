@@ -70,7 +70,7 @@ function transform() {
     for (var i = 0; i < model.properties.length; i++) {
         var property = model.properties[i];
         if (property.isKey) {
-            keys.push(property.type + " " + property.name);
+            keys.push(property.type + " " + property.name.lowerCaseFirstLetter());
         }
     }
     code += keys.join(', ');
@@ -81,7 +81,7 @@ function transform() {
     var conditions = [];
     for (var i = 0; i < keys.length; i++) {
         var keyName = keys[i].split(/\s+/g)[1];
-        conditions.push('[' + keyName + '] = @' + keyName.lowerCaseFirstLetter());
+        conditions.push('[' + keyName + '] = @' + keyName);
     }
     if (conditions.length > 0) {
         code += ' WHERE ' + conditions.join(' AND ');
