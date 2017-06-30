@@ -1,6 +1,7 @@
 "use strict"
 var model = new Object();
-var regex = /(.*public\s+)(.*)(\s+{ get; set; }.*)/;
+var csharpDataTypes = ["bool", "byte", "char", "decimal", "double", "enum", "float", "int", "long", "sbyte", "short", "object", "string", "uint", "ulong", "ushort"];
+var csharpClass = " class ";
 
 $('#codeTextarea').bind('input change', function() {
     extract(this.value);
@@ -8,49 +9,53 @@ $('#codeTextarea').bind('input change', function() {
 });
 
 function extract(text) {
-    
+
     model = new Object();
     model.properties = [];
     $('#properties').empty();
-    
-    
-     var lines = text.split('\n');
-      for(var i = 0;i < lines.length;i++){
-               
-       var propertyName = lines[i].replace(regex, "$2");
-          
-       if (propertyName.indexOf(" class ") !== -1) {
-            model.name = propertyName.replace(/\s+/g, " ").match(/class\s(\w*)/, '')[1];
+
+    var lines = text.split('\n');
+    for (var i = 0; i < lines.length; i++) {
+
+        var line = lines[i].replace(/\s+/g, " ");
+
+        if (line.indexOf(csharpClass) !== -1) {
+            model.name = line.slice(line.indexOf(csharpClass) + csharpClass.length).split(' ')[0];;
             continue;
-       }
-          
-       var propertyType = propertyName.split(/\s+/g)[0];
-       propertyName = propertyName.split(/\s+/g)[1];
-          
-       if (!propertyType || !propertyName) {
-        continue;
-       }
-          
-      var modelProperty = new Object();
-      modelProperty.type = propertyType;
-      modelProperty.name = propertyName;
-      modelProperty.isKey = true; // testing
-      model.properties.push(modelProperty);
-         
-          
-      var property = '<div class="form-check">';
-      property += '<label class="form-check-label">';
-      property += '<input class="form-check-input" type="checkbox"> ';
-      property += propertyName;
-      property += '</label>';
-      property += '</div>';
-      
-      $('#properties').append(property);
-}
+        }
+
+        $.each(csharpDataTypes, function() {
+            var dataType = this;
+            if (line.indexOf(dataType) !== -1) {
+                var property = new Object();
+                property.type = dataType;
+                property.name = line.slice(line.indexOf(dataType) + dataType.length + 1).split(' ')[0];
+                property.isKey = false;
+                model.properties.push(property);
+
+                $('#properties').append('<div class="form-check">' +
+                                            '<label class="form-check-label">' +
+                                                '<input class="form-check-input" type="checkbox" onchange="transform();" value="' + property.name +  '"> ' + property.name +
+                                            '</label>' +
+                                        '</div>');
+            }
+        });
+    }
 }
 
 function transform() {
-    
+
+    $('#properties input').each(function() {
+         var propertyName = this.value;
+         var isChecked = this.checked;
+         
+         $.each(model.properties, function() {
+                if (this.name == propertyName) {
+                    this.isKey = isChecked;
+                }
+         });
+    });
+
     if (!model.name || model.properties.length == 0) {
         $('#getTextarea').val("");
         $('#addTextarea').val("");
@@ -58,41 +63,76 @@ function transform() {
         $('#deleteTextarea').val("");
         return;
     }
-    
+
     // get record(s) by key(s).
     var keys = [];
     var code = 'public IEnumerable<' + model.name + '> Get(';
     for (var i = 0; i < model.properties.length; i++) {
         var property = model.properties[i];
         if (property.isKey) {
-            keys.push(property.type + " " + property.name);
+            keys.push(property.type + " " + property.name.lowerCaseFirstLetter());
         }
     }
-    code += keys.join(", ");
-    code += ') {';
-    
-    code += '\n \tvar query = "SELECT * FROM [' + model.name + '] WHERE ';
-    
+    code += keys.join(', ');
+    code += ')';
+    code += '\n{';
+    code += '\n\tvar query = "SELECT * FROM [' + model.name + ']';
+
     var conditions = [];
     for (var i = 0; i < keys.length; i++) {
         var keyName = keys[i].split(/\s+/g)[1];
         conditions.push('[' + keyName + '] = @' + keyName);
     }
-    code += conditions.join(" AND ") + ';"';
-    
-    code += '\n}';  
+    if (conditions.length > 0) {
+        code += ' WHERE ' + conditions.join(' AND ');
+    }
+    code += '";';
+    if (conditions.length > 0) {
+        code += '\n\tvar parameters = new List<SqlParameter>()';
+        code += '\n\t{';
+        for (var i = 0; i < keys.length; i++) {
+            var keyName = keys[i].split(/\s+/g)[1];
+            code += '\n\t\tnew SqlParameter("@' + keyName.lowerCaseFirstLetter() + '", ' + keyName + '), ';
+        }
+        code += '\n\t};';
+    }
+
+    code += '\n}';
     $('#getTextarea').val(code);
-    
-    // add record(s).
-    code = 'INSERT INTO [' + model.name + '] (';
-    
+
+    // add record(s) with object(s).
+    code = 'public int Add(' + model.name + ' ' +  model.name.lowerCaseFirstLetter() + ')';
+    code += '\n{'
+    code += '\n\tvar query = "INSERT INTO [' + model.name + '] (';
+
+    var propertyNames = model.properties.map(function(property) {return property.name;});
+    var columnNames = propertyNames.map(function(name) { return "[" +  name + "]";})
+    code += columnNames.join(', ') + ') VALUES (';
+    var parameterNames = propertyNames.map(function(name) { return "@" +  name.lowerCaseFirstLetter();});
+    code += parameterNames.join(', ') + ')";';
+
+    code += '\n\tvar parameters = new List<SqlParameter>()';
+    code += '\n\t{';
+    for (var i = 0; i < propertyNames.length; i++) {
+        code += '\n\t\tnew SqlParameter("@' + propertyNames[i].lowerCaseFirstLetter() + '", ' + propertyNames[i].lowerCaseFirstLetter() + '), ';
+    }
+    code += '\n\t};';
+
+    code += '\n}'
+
     $('#addTextarea').val(code);
-    
-    // update record(s).
-    code = 'UPDATE [' + model.name + ']';
+
+    // update record(s) with object(s).
+    code = 'public int Update(' + model.name + ' ' +  model.name.lowerCaseFirstLetter() + ')';
+    code += '\n{'
+    code += '\n\tvar query = "UPDATE [' + model.name + ']';
     $('#updateTextarea').val(code);
-    
-    // delete record(s)
+
+    // delete record(s) with key(s).
     code = 'DELETE FROM [' + model.name + ']';
     $('#deleteTextarea').val(code);
+}
+
+String.prototype.lowerCaseFirstLetter = function() {
+    return this.charAt(0).toLowerCase() + this.slice(1);
 }
