@@ -29,7 +29,7 @@ function extract(text) {
             if (line.toLowerCase().indexOf(dataType) !== -1) {
                 var property = new Object();
                 property.type = dataType;
-                property.name = line.slice(line.toLowerCase().indexOf(dataType) + dataType.length + 1).split(' ')[1];
+                property.name = line.slice(line.toLowerCase().indexOf(dataType) + dataType.length + 1).split(' ')[0];
                 property.isKey = true;
                 model.properties.push(property);
 
