@@ -1,81 +1,83 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<title>C#</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-	<link rel="icon" type="image/x-icon" href="favicon.ico">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"/>
-	<style>
-		html {
-		    position: relative;
-		    min-height: 100%;
-		}
-		body {
-		    margin: 0 0 40px;
-		}
-		footer {
-		    position: absolute;
-		    left: 0;
-		    bottom: 0;
-		    height: 40px;
-		    width: 100%;
-		}
-		.content {
-		padding-top: 2rem;
-		}
-		div p {
+		<title>C#</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<link rel="icon" type="image/x-icon" href="favicon.ico">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="../assets/twemoji-awesome.css">
+		<style>
+			html {
+			position: relative;
+			min-height: 100%;
+			}
+			body {
+			margin: 0 0 40px;
+			}
+			footer {
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			height: 40px;
+			width: 100%;
+			}
+			.content {
+			padding-top: 2rem;
+			}
+			div p {
 			margin-bottom:0;
-		}
-		textarea:disabled {
-		  white-space: pre;
-		  overflow-wrap: normal;
-		  overflow-x: scroll;
-		}
-	</style>
+			}
+			textarea:disabled {
+			white-space: pre;
+			overflow-wrap: normal;
+			overflow-x: scroll;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="container">
-		<nav class="navbar navbar-light bg-faded">
-			<a class="navbar-brand" href="#">
-			<img src="csharp.svg" width="30" height="30" alt=""> rud
-			</a>
-		</nav>
-		<div class="row content">
-			<div class="col-md-6">
-				<div class="form-group">
-					<textarea class="form-control" id="codeTextarea" rows="12" placeholder="copy & paste model class here..."></textarea>
+			<nav class="navbar navbar-light bg-faded">
+				<a class="navbar-brand" href="#">
+				<img src="csharp.svg" width="30" height="30" alt=""> rud
+				</a>
+			</nav>
+			<div class="row content">
+				<div class="col-md-6">
+					<div class="form-group">
+						<textarea class="form-control" id="codeTextarea" rows="12" placeholder="copy & paste model class here..."></textarea>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div id="properties">
+					</div>
 				</div>
 			</div>
-			<div class="col-md-6">
-				<div id="properties">
+			<div class="row">
+				<div class="col-md-6">
+					<p><span class="badge badge-info">GET</span></p>
+					<textarea class="form-control" id="getTextarea" rows="8" disabled></textarea>
+				</div>
+				<div class="col-md-6">
+					<p><span class="badge badge-success">ADD</span></p>
+					<textarea class="form-control" id="addTextarea" rows="8" disabled></textarea>
+				</div>
+				<div class="col-md-6">
+					<p><span class="badge badge-primary">UPDATE</span></p>
+					<textarea class="form-control" id="updateTextarea" rows="8" disabled></textarea>
+				</div>
+				<div class="col-md-6">
+					<p><span class="badge badge-danger">DELETE</span></p>
+					<textarea class="form-control" id="deleteTextarea" rows="8" disabled></textarea>
 				</div>
 			</div>
 		</div>
-		
-		<div class="row">
-			<div class="col-md-6">
-			<p><span class="badge badge-info">GET</span></p>
-			<textarea class="form-control" id="getTextarea" rows="8" disabled></textarea>
-			</div>
-			<div class="col-md-6">
-			<p><span class="badge badge-success">ADD</span></p>
-			<textarea class="form-control" id="addTextarea" rows="8" disabled></textarea>
-			</div>
-			<div class="col-md-6">
-			<p><span class="badge badge-primary">UPDATE</span></p>
-			<textarea class="form-control" id="updateTextarea" rows="8" disabled></textarea>
-			</div>
-			<div class="col-md-6">
-			<p><span class="badge badge-danger">DELETE</span></p>
-			<textarea class="form-control" id="deleteTextarea" rows="8" disabled></textarea>
-			</div>
-		</div>
-		</div>
-		    <footer class="footer">
+		<footer class="footer">
 			<div class="container">
-			<span class="text-muted">Made with love in Vancouver BC. MIT license.</span>
-			    </div>
-		    </footer>
+				<span class="text-muted">
+				Made with <i class="twa twa-heart"></i> in Vancouver, BC <i class="twa twa-maple-leaf"></i>
+				</span>
+			</div>
+		</footer>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
