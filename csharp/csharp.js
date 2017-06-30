@@ -20,6 +20,7 @@ function extract(text) {
         var line = lines[i].replace(/\s+/g, " ");
 
         if (line.toLowerCase().indexOf(csharpClass) !== -1) {
+            console.log(line.toLowerCase())
             model.name = line.slice(line.toLowerCase().indexOf(csharpClass) + csharpClass.length).split(' ')[0];;
             continue;
         }
