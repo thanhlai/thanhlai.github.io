@@ -146,7 +146,12 @@ function transform() {
     if (conditions.length > 0) {
         code += ' WHERE ' + conditions.join(' AND ');
     }
-    code += '";';
+    code += '";';    
+    code += '\n\t\tvar parameters = new List<SqlParameter>()';
+    code += '\n\t\t{';
+    for (var i = 0; i < propertyNames.length; i++) {
+        code += '\n\t\t\tnew SqlParameter("@' + propertyNames[i].lowerCaseFirstLetter() + '", ' + model.name + '.' + propertyNames[i].toUpperCaseFirstLetter() + '), ';
+    }
     
     code += '\n\t}';
     
