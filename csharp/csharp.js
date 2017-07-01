@@ -112,9 +112,9 @@ function transform() {
 
     // add record(s) with object(s).
     code = 'public int Add(IEnumerable<' + model.name + '> ' +  pluralize(model.name.lowerCaseFirstLetter()) + ')';
-    code += '\n{'
+    code += '\n{';
     code += '\n\tforeach (var ' + model.name + ' in ' + pluralize(model.name.lowerCaseFirstLetter()) + ') ';
-    code += '\n\t{'
+    code += '\n\t{';
     code += '\n\t\tvar query = "INSERT INTO [' + model.name + '] (';
 
     var propertyNames = model.properties.map(function(property) {return property.name;});
@@ -135,9 +135,21 @@ function transform() {
     $('#addTextarea').val(code);
 
     // update record(s) with object(s).
-    code = 'public int Update(' + model.name + ' ' +  model.name.lowerCaseFirstLetter() + ')';
+   code = 'public int Update(IEnumerable<' + model.name + '> ' +  pluralize(model.name.lowerCaseFirstLetter()) + ')';
     code += '\n{'
-    code += '\n\tvar query = "UPDATE [' + model.name + ']';
+    code += '\n\tforeach (var ' + model.name + ' in ' + pluralize(model.name.lowerCaseFirstLetter()) + ') ';
+    code += '\n\t{';
+    code += '\n\t\tvar query = "UPDATE [' + model.name + '] SET ';
+    
+    columnNames = propertyNames.map(function(name) { return "[" +  name + "] = @" + name;})
+    code += columnNames.join(', ');
+    if (conditions.length > 0) {
+        code += ' WHERE ' + conditions.join(' AND ');
+    }
+    code += '";';
+    
+    code += '\n\t}';
+    
     $('#updateTextarea').val(code);
 
     // delete record(s) with key(s).
