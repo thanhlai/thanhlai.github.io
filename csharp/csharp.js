@@ -6,6 +6,7 @@ var csharpClass = "class";
 $( document ).ready(function() {
     var test = 'public class user'
     test += '\n{'
+    test += '\n\tpublic long id {get;set;}'
     test += '\n\tpublic int age {get;set;}'
     test += '\n\tpublic string name {get;set;}'
     test += '\n\tpublic bool isGay {get;set;}'
