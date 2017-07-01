@@ -103,8 +103,9 @@ function transform() {
     // add record(s) with object(s).
     code = 'public int Add(IEnumerable<' + model.name + '> ' +  pluralize(model.name.lowerCaseFirstLetter()) + ')';
     code += '\n{'
-    code + '\n\tforeach (var ';
-    code += '\n\tvar query = "INSERT INTO [' + model.name + '] (';
+    code += '\n\tforeach (var ' + model.name + ' in ' + pluralize(model.name.lowerCaseFirstLetter()) + ') ';
+    code += '\n\t{'
+    code += '\n\t\tvar query = "INSERT INTO [' + model.name + '] (';
 
     var propertyNames = model.properties.map(function(property) {return property.name;});
     var columnNames = propertyNames.map(function(name) { return "[" +  name + "]";})
@@ -112,13 +113,13 @@ function transform() {
     var parameterNames = propertyNames.map(function(name) { return "@" +  name.lowerCaseFirstLetter();});
     code += parameterNames.join(', ') + ')";';
 
-    code += '\n\tvar parameters = new List<SqlParameter>()';
-    code += '\n\t{';
+    code += '\n\t\tvar parameters = new List<SqlParameter>()';
+    code += '\n\t\t{';
     for (var i = 0; i < propertyNames.length; i++) {
-        code += '\n\t\tnew SqlParameter("@' + propertyNames[i].lowerCaseFirstLetter() + '", ' + model.name + '.' + propertyNames[i].toUpperCaseFirstLetter() + '), ';
+        code += '\n\t\t\tnew SqlParameter("@' + propertyNames[i].lowerCaseFirstLetter() + '", ' + model.name + '.' + propertyNames[i].toUpperCaseFirstLetter() + '), ';
     }
-    code += '\n\t};';
-
+    code += '\n\t\t};';
+    code += '\n\t}';
     code += '\n}'
 
     $('#addTextarea').val(code);
