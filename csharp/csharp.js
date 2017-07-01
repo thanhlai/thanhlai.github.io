@@ -101,8 +101,9 @@ function transform() {
     $('#getTextarea').val(code);
 
     // add record(s) with object(s).
-    code = 'public int Add(' + model.name + ' ' +  model.name.lowerCaseFirstLetter() + ')';
+    code = 'public int Add(IEnumerable<' + model.name + '> ' +  pluralize(model.name.lowerCaseFirstLetter()) + ')';
     code += '\n{'
+    code + '\n\tforeach (var ';
     code += '\n\tvar query = "INSERT INTO [' + model.name + '] (';
 
     var propertyNames = model.properties.map(function(property) {return property.name;});
