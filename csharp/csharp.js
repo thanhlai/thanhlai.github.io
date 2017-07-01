@@ -130,7 +130,7 @@ function transform() {
     }
     code += '\n\t\t};';
     code += '\n\t}';
-    code += '\n}'
+    code += '\n}';
 
     $('#addTextarea').val(code);
 
@@ -152,8 +152,9 @@ function transform() {
     for (var i = 0; i < propertyNames.length; i++) {
         code += '\n\t\t\tnew SqlParameter("@' + propertyNames[i].lowerCaseFirstLetter() + '", ' + model.name + '.' + propertyNames[i].toUpperCaseFirstLetter() + '), ';
     }
-    
+    code += '\n\t\t};';
     code += '\n\t}';
+    code += '\n}';
     
     $('#updateTextarea').val(code);
 
