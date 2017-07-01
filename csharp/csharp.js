@@ -160,12 +160,6 @@ function transform() {
 
     // delete record(s) with key(s).   
     var code = 'public int Delete(';
-    for (var i = 0; i < model.properties.length; i++) {
-        var property = model.properties[i];
-        if (property.isKey) {
-            keys.push(property.type + " " + property.name.lowerCaseFirstLetter());
-        }
-    }
     code += keys.join(', ');
     code += ')';
     code += '\n{';
