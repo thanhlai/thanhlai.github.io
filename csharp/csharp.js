@@ -114,7 +114,7 @@ function transform() {
     code += '\n\tvar parameters = new List<SqlParameter>()';
     code += '\n\t{';
     for (var i = 0; i < propertyNames.length; i++) {
-        code += '\n\t\tnew SqlParameter("@' + propertyNames[i].lowerCaseFirstLetter() + '", ' + propertyNames[i].lowerCaseFirstLetter() + '), ';
+        code += '\n\t\tnew SqlParameter("@' + propertyNames[i].lowerCaseFirstLetter() + '", ' + model.name + '.' + propertyNames[i].toUpperCaseFirstLetter() + '), ';
     }
     code += '\n\t};';
 
