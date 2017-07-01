@@ -2,6 +2,16 @@
 var model = new Object();
 var csharpDataTypes = ["bool", "byte", "char", "decimal", "double", "enum", "float", "int", "long", "sbyte", "short", "object", "string", "uint", "ulong", "ushort"];
 var csharpClass = "class";
+//test
+$( document ).ready(function() {
+    var test = 'public class user'
+    test += '\n{'
+    test += '\n\tpublic int age {get;set;}'
+    test += '\n\tpublic string name {get;set;}'
+    test += '\n\tpublic bool isGay {get;set;}'
+    test += '\n}';
+    $('#codeTextarea').val(test);
+});
 
 $('#codeTextarea').bind('input change', function() {
     extract(this.value);
