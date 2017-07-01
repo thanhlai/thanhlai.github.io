@@ -158,8 +158,38 @@ function transform() {
     
     $('#updateTextarea').val(code);
 
-    // delete record(s) with key(s).
-    code = 'DELETE FROM [' + model.name + ']';
+    // delete record(s) with key(s).   
+    var code = 'public int Delete(';
+    for (var i = 0; i < model.properties.length; i++) {
+        var property = model.properties[i];
+        if (property.isKey) {
+            keys.push(property.type + " " + property.name.lowerCaseFirstLetter());
+        }
+    }
+    code += keys.join(', ');
+    code += ')';
+    code += '\n{';
+    code += '\n\tvar query = "DELETE FROM [' + model.name + ']';
+        var conditions = [];
+    for (var i = 0; i < keys.length; i++) {
+        var keyName = keys[i].split(/\s+/g)[1];
+        conditions.push('[' + keyName + '] = @' + keyName);
+    }
+    if (conditions.length > 0) {
+        code += ' WHERE ' + conditions.join(' AND ');
+    }
+    code += '";';
+    if (conditions.length > 0) {
+        code += '\n\tvar parameters = new List<SqlParameter>()';
+        code += '\n\t{';
+        for (var i = 0; i < keys.length; i++) {
+            var keyName = keys[i].split(/\s+/g)[1];
+            code += '\n\t\tnew SqlParameter("@' + keyName.lowerCaseFirstLetter() + '", ' + keyName + '), ';
+        }
+        code += '\n\t};';
+    }
+    code += '\n}';
+    
     $('#deleteTextarea').val(code);
 }
 
