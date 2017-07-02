@@ -110,6 +110,7 @@ function transform() {
 
     code += '\n}';
     $('#getTextarea').text(code);
+    Prism.highlightElement($('#getTextarea')[0]);
 
     // add record(s) with object(s).
     code = 'public int Add(IEnumerable<' + model.name + '> ' +  pluralize(model.name.lowerCaseFirstLetter()) + ')';
