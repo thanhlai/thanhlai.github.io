@@ -68,7 +68,7 @@ function transform() {
     });
 
     if (!model.name || model.properties.length == 0) {
-        $('#getTextarea').val("");
+        $('#getTextarea').text("");
         $('#addTextarea').val("");
         $('#updateTextarea').val("");
         $('#deleteTextarea').val("");
