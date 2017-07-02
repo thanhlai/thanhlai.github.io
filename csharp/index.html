@@ -57,8 +57,8 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div>
-						<span class="badge badge-info">GET</span>
-						<span class="badge badge-default" data-clipboard-target="#getTextarea">copy</span>
+						<span class="badge badge-info float-left">GET</span>
+						<span class="badge badge-default float-right copy" data-clipboard-target="#getTextarea">copy</span>
 					</div>
 					<textarea class="form-control" id="getTextarea" rows="8" readonly></textarea>
 				</div>
@@ -89,5 +89,6 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
 		<script src="pluralize.js"></script>
 		<script>document.write("<script type='text/javascript' src='csharp.js?v=" + Date.now() + "'><\/script>");</script>
+		<script>new Clipboard('.copy');</script>
 	</body>
 </html>
