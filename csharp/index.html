@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<link rel="icon" type="image/x-icon" href="favicon.ico"/>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"/>
+		<link href="prism.css" rel="stylesheet" />
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
 		<link rel="stylesheet" href="../assets/twemoji-awesome.css"/>
 		<style>
@@ -27,11 +28,6 @@
 			}
 			div p {
 			margin-bottom:0;
-			}
-			textarea:disabled {
-			  white-space: pre;
-			  overflow-wrap: normal;
-			  overflow-x: scroll;
 			}
 			.copy {
 			cursor: pointer;
@@ -66,7 +62,8 @@
 							<i class="fa fa-clipboard" aria-hidden="true"></i>
 						</span>
 					</div>
-					<textarea class="form-control" id="getTextarea" rows="8" readonly></textarea>
+					<pre><code class="language-csharp" id="getTextarea"></code></pre>
+					<!-- <textarea class="form-control" id="getTextarea" rows="8" readonly></textarea> -->
 				</div>
 				<div class="col-md-6">
 					<div>
@@ -108,6 +105,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+		<script src="prism.js"></script>
 		<script src="pluralize.js"></script>
 		<script>document.write("<script type='text/javascript' src='csharp.js?v=" + Date.now() + "'><\/script>");</script>
 		<script>		
