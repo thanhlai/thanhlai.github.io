@@ -109,7 +109,7 @@ function transform() {
     }
 
     code += '\n}';
-    $('#getTextarea').val(code);
+    $('#getTextarea').text(code);
 
     // add record(s) with object(s).
     code = 'public int Add(IEnumerable<' + model.name + '> ' +  pluralize(model.name.lowerCaseFirstLetter()) + ')';
