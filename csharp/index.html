@@ -28,7 +28,7 @@
 			}
 			.bg-faded {
 			border-radius: 27px 0px 0px 27px;
-     		background-color: #f5f2f0; 
+     		background-color: #f7f7f9;
 			}
 			div p {
 			margin-bottom:0;
@@ -43,14 +43,22 @@
 			.twa-heart {
 				font-size: smaller;
 			}
-						.bd-clipboard {
+			.bd-clipboard {
 				position: relative;
 				display: none;
 				float: right;
 			}
+			pre[class*="language-"] {
+				padding: 1rem;
+				background-color: #f7f7f9;
+			}
+
 			@media (min-width: 768px) {
 				.bd-clipboard {
 					display: block;
+				}
+				pre[class*="language-"] {
+				padding: 1.5rem;
 				}
 			}
 			.btn-clipboard {
@@ -164,8 +172,6 @@
 		<script src="pluralize.js"></script>
 		<script>document.write("<script type='text/javascript' src='csharp.js?v=" + Date.now() + "'><\/script>");</script>
 		<script>		
-
-		// Insert copy to clipboard button before .highlight
 			$('.highlight').each(function () {
 			var btnHtml = '<div class="bd-clipboard float-right"><span class="btn-clipboard" title="Copy to clipboard">Copy</span></div>'
 			$(this).before(btnHtml)
