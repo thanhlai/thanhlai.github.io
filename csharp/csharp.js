@@ -4,12 +4,12 @@ var csharpDataTypes = ["bool", "byte", "char", "decimal", "double", "enum", "flo
 var csharpClass = "class";
 //test
 $( document ).ready(function() {
-    var test = 'public class user'
+    var test = 'public class Example'
     test += '\n{'
     test += '\n\tpublic long id {get;set;}'
     test += '\n\tpublic int age {get;set;}'
     test += '\n\tpublic string name {get;set;}'
-    test += '\n\tpublic bool isGay {get;set;}'
+    test += '\n\tpublic bool isCsharp {get;set;}'
     test += '\n}';
     $('#codeTextarea').val(test);
 });
