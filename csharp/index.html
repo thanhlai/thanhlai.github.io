@@ -26,6 +26,10 @@
 			.content {
 			padding-top: 0.8rem;
 			}
+			.bg-faded {
+			border-radius: 27px 0px 0px 27px;
+     		background-color: #f5f2f0; 
+			}
 			div p {
 			margin-bottom:0;
 			}
@@ -36,14 +40,20 @@
 			color: #3cba54;
     			font-weight: 600;
 			}
+			.twa-heart {
+				font-size: smaller;
+			}
 		</style>
 	</head>
 	<body>
 		<div class="container">
 			<nav class="navbar navbar-light bg-faded">
-				<a class="navbar-brand" href="#">
-				    <img src="csharp.svg" width="30" height="30" alt="csharp logo">
-				</a>
+				<span class="navbar-brand">
+				    <img src="csharp.svg" width="30" height="30" alt="csharp logo" />
+					<a href="#" class="float-right" data-toggle="modal" data-target="#aboutModal">
+						about
+					</a>
+				</span>
 			</nav>
 			<div class="row content">
 				<div class="col-md-6">
@@ -107,6 +117,30 @@
 				</span>
 			</div>
 		</footer>
+
+		<div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">about this tool</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				Free. All code generated is free for commercial under MIT license.
+				While code generation may not be appropriate for all parts of software development, 
+				it is suitable for generating repetitive and mundane code, like CRUD (create, retrieve, update, delete) functionality. 
+				<p>Version: 1.0</p>
+				
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+			</div>
+			</div>
+		</div>
+		</div>
+		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
