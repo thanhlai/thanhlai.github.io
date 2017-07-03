@@ -69,9 +69,9 @@ function transform() {
 
     if (!model.name || model.properties.length == 0) {
         $('#getTextarea').text("");
-        $('#addTextarea').val("");
-        $('#updateTextarea').val("");
-        $('#deleteTextarea').val("");
+        $('#addTextarea').text("");
+        $('#updateTextarea').text("");
+        $('#deleteTextarea').text("");
         return;
     }
 
@@ -133,7 +133,7 @@ function transform() {
     code += '\n\t}';
     code += '\n}';
 
-    $('#addTextarea').val(code);
+    $('#addTextarea').text(code);
 
     // update record(s) with object(s).
    code = 'public int Update(IEnumerable<' + model.name + '> ' +  pluralize(model.name.lowerCaseFirstLetter()) + ')';
@@ -157,7 +157,7 @@ function transform() {
     code += '\n\t}';
     code += '\n}';
     
-    $('#updateTextarea').val(code);
+    $('#updateTextarea').text(code);
 
     // delete record(s) with key(s).   
     var code = 'public int Delete(';
@@ -185,9 +185,8 @@ function transform() {
     }
     code += '\n}';
     
-    $('#deleteTextarea').val(code);
+    $('#deleteTextarea').text(code);
     
-    // http://prismjs.com/extending.html#api
     Prism.highlightAll();
 }
 
