@@ -1,0 +1,1 @@
+# Chromium extension for resuming videos when they were left off
