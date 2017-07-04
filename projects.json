@@ -19,5 +19,12 @@
   "logo": "pear.png",
   "url": "/pear",
   "date" : "July 2017"
+},
+{
+  "name" : "csharp",
+  "description": "C# CRUD code generation",
+  "logo": "pear.png",
+  "url": "/csharp",
+  "date" : "July 2017"
 }
 ]
