@@ -23,7 +23,7 @@
 {
   "name" : "csharp",
   "description": "C# CRUD code generation",
-  "logo": "pear.png",
+  "logo": "csharp.png",
   "url": "/csharp",
   "date" : "July 2017"
 }
