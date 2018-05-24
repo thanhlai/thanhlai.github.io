@@ -1,6 +1,6 @@
 "use strict"
 var model = new Object();
-var csharpDataTypes = ["bool", "byte", "char", "decimal", "double", "enum", "float", "int", "long", "sbyte", "short", "object", "string", "uint", "ulong", "ushort"];
+var csharpDataTypes = ["bool", "byte", "char", "decimal", "double", "enum", "float", "int", "long", "sbyte", "short", "object", "string", "uint", "ulong", "ushort", "DateTime"];
 var csharpClass = "class";
 //test
 $( document ).ready(function() {
