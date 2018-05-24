@@ -82,7 +82,7 @@ function transform() {
     for (var i = 0; i < model.properties.length; i++) {
         var property = model.properties[i];
         if (property.isKey) {
-            keys.push(property.type + " " + property.name.lowerCaseFirstLetter());
+            keys.push(property.type + " " + property.name.toCamelCase());
         }
     }
     code += keys.join(', ');
@@ -104,7 +104,7 @@ function transform() {
         code += '\n\t{';
         for (var i = 0; i < keys.length; i++) {
             var keyName = keys[i].split(/\s+/g)[1];
-            code += '\n\t\tnew SqlParameter("@' + keyName.lowerCaseFirstLetter() + '", ' + keyName + '), ';
+            code += '\n\t\tnew SqlParameter("@' + keyName.toCamelCase() + '", ' + keyName + '), ';
         }
         code += '\n\t};';
     }
@@ -113,22 +113,22 @@ function transform() {
     $('#getTextarea').text(code);
 
     // add record(s) with object(s).
-    code = 'public int Add(IEnumerable<' + model.name + '> ' +  pluralize(model.name.lowerCaseFirstLetter()) + ')';
+    code = 'public int Add(IEnumerable<' + model.name + '> ' +  pluralize(model.name.toCamelCase()) + ')';
     code += '\n{';
-    code += '\n\tforeach (var ' + model.name.lowerCaseFirstLetter() + ' in ' + pluralize(model.name.lowerCaseFirstLetter()) + ') ';
+    code += '\n\tforeach (var ' + model.name.toCamelCase() + ' in ' + pluralize(model.name.toCamelCase()) + ') ';
     code += '\n\t{';
     code += '\n\t\tvar query = "INSERT INTO [' + model.name + '] (';
 
     var propertyNames = model.properties.map(function(property) {return property.name;});
     var columnNames = propertyNames.map(function(name) { return "[" +  name + "]";})
     code += columnNames.join(', ') + ') VALUES (';
-    var parameterNames = propertyNames.map(function(name) { return "@" +  name.lowerCaseFirstLetter();});
+    var parameterNames = propertyNames.map(function(name) { return "@" +  name.toCamelCase();});
     code += parameterNames.join(', ') + ')";';
 
     code += '\n\t\tvar parameters = new List<SqlParameter>()';
     code += '\n\t\t{';
     for (var i = 0; i < propertyNames.length; i++) {
-        code += '\n\t\t\tnew SqlParameter("@' + propertyNames[i].lowerCaseFirstLetter() + '", ' + model.name.lowerCaseFirstLetter() + '.' + propertyNames[i] + '), ';
+        code += '\n\t\t\tnew SqlParameter("@' + propertyNames[i].toCamelCase() + '", ' + model.name.toCamelCase() + '.' + propertyNames[i] + '), ';
     }
     code += '\n\t\t};';
     code += '\n\t}';
@@ -137,9 +137,9 @@ function transform() {
     $('#addTextarea').text(code);
 
     // update record(s) with object(s).
-    code = 'public int Update(IEnumerable<' + model.name + '> ' +  pluralize(model.name.lowerCaseFirstLetter()) + ')';
+    code = 'public int Update(IEnumerable<' + model.name + '> ' +  pluralize(model.name.toCamelCase()) + ')';
     code += '\n{'
-    code += '\n\tforeach (var ' + model.name.lowerCaseFirstLetter() + ' in ' + pluralize(model.name.lowerCaseFirstLetter()) + ') ';
+    code += '\n\tforeach (var ' + model.name.toCamelCase() + ' in ' + pluralize(model.name.toCamelCase()) + ') ';
     code += '\n\t{';
     code += '\n\t\tvar query = "UPDATE [' + model.name + '] SET ';
     
@@ -152,7 +152,7 @@ function transform() {
     code += '\n\t\tvar parameters = new List<SqlParameter>()';
     code += '\n\t\t{';
     for (var i = 0; i < propertyNames.length; i++) {
-        code += '\n\t\t\tnew SqlParameter("@' + propertyNames[i].lowerCaseFirstLetter() + '", ' + model.name.lowerCaseFirstLetter() + '.' + propertyNames[i] + '), ';
+        code += '\n\t\t\tnew SqlParameter("@' + propertyNames[i].toCamelCase() + '", ' + model.name.toCamelCase() + '.' + propertyNames[i] + '), ';
     }
     code += '\n\t\t};';
     code += '\n\t}';
@@ -180,7 +180,7 @@ function transform() {
         code += '\n\t{';
         for (var i = 0; i < keys.length; i++) {
             var keyName = keys[i].split(/\s+/g)[1];
-            code += '\n\t\tnew SqlParameter("@' + keyName.lowerCaseFirstLetter() + '", ' + keyName + '), ';
+            code += '\n\t\tnew SqlParameter("@' + keyName.toCamelCase() + '", ' + keyName + '), ';
         }
         code += '\n\t};';
     }
@@ -191,6 +191,8 @@ function transform() {
     Prism.highlightAll();
 }
 
-String.prototype.lowerCaseFirstLetter = function() {
-    return this.charAt(0).toLowerCase() + this.slice(1);
+String.prototype.toCamelCase = function() {
+    return this.replace(/\s(.)/g, function($1) { return $1.toUpperCase(); })
+			   .replace(/\s/g, '')
+			   .replace(/^(.)/, function($1) { return $1.toLowerCase(); });
 }
