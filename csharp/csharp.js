@@ -12,6 +12,7 @@ $( document ).ready(function() {
     test += '\n\tpublic bool isCsharp {get;set;}'
     test += '\n}';
     $('#codeTextarea').val(test);
+    $('#codeTextarea').trigger('change');
 });
 
 $('#codeTextarea').bind('input change', function() {
