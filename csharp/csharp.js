@@ -38,7 +38,7 @@ function extract(text) {
 
         $.each(csharpDataTypes, function() {
             var dataType = this;
-            if (line.toLowerCase().indexOf(dataType) !== -1) {
+            if (line.toLowerCase().indexOf(dataType.toLowerCase()) !== -1) {
                 var property = new Object();
                 property.type = dataType;
                 property.name = line.slice(line.toLowerCase().indexOf(dataType) + dataType.length + 1).split(' ')[0];
