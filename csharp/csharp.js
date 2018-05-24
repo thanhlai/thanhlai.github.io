@@ -115,7 +115,7 @@ function transform() {
     // add record(s) with object(s).
     code = 'public int Add(IEnumerable<' + model.name + '> ' +  pluralize(model.name.lowerCaseFirstLetter()) + ')';
     code += '\n{';
-    code += '\n\tforeach (var ' + model.name + ' in ' + pluralize(model.name.lowerCaseFirstLetter()) + ') ';
+    code += '\n\tforeach (var ' + model.name.lowerCaseFirstLetter() + ' in ' + pluralize(model.name.lowerCaseFirstLetter()) + ') ';
     code += '\n\t{';
     code += '\n\t\tvar query = "INSERT INTO [' + model.name + '] (';
 
@@ -137,9 +137,9 @@ function transform() {
     $('#addTextarea').text(code);
 
     // update record(s) with object(s).
-   code = 'public int Update(IEnumerable<' + model.name + '> ' +  pluralize(model.name.lowerCaseFirstLetter()) + ')';
+    code = 'public int Update(IEnumerable<' + model.name + '> ' +  pluralize(model.name.lowerCaseFirstLetter()) + ')';
     code += '\n{'
-    code += '\n\tforeach (var ' + model.name + ' in ' + pluralize(model.name.lowerCaseFirstLetter()) + ') ';
+    code += '\n\tforeach (var ' + model.name.lowerCaseFirstLetter() + ' in ' + pluralize(model.name.lowerCaseFirstLetter()) + ') ';
     code += '\n\t{';
     code += '\n\t\tvar query = "UPDATE [' + model.name + '] SET ';
     
