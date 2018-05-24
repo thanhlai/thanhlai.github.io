@@ -128,7 +128,7 @@ function transform() {
     code += '\n\t\tvar parameters = new List<SqlParameter>()';
     code += '\n\t\t{';
     for (var i = 0; i < propertyNames.length; i++) {
-        code += '\n\t\t\tnew SqlParameter("@' + propertyNames[i].lowerCaseFirstLetter() + '", ' + model.name.toUpperCaseFirstLetter() + '.' + propertyNames[i].toUpperCaseFirstLetter() + '), ';
+        code += '\n\t\t\tnew SqlParameter("@' + propertyNames[i].lowerCaseFirstLetter() + '", ' + model.name + '.' + propertyNames[i] + '), ';
     }
     code += '\n\t\t};';
     code += '\n\t}';
@@ -152,7 +152,7 @@ function transform() {
     code += '\n\t\tvar parameters = new List<SqlParameter>()';
     code += '\n\t\t{';
     for (var i = 0; i < propertyNames.length; i++) {
-        code += '\n\t\t\tnew SqlParameter("@' + propertyNames[i].lowerCaseFirstLetter() + '", ' + model.name.toUpperCaseFirstLetter() + '.' + propertyNames[i].toUpperCaseFirstLetter() + '), ';
+        code += '\n\t\t\tnew SqlParameter("@' + propertyNames[i].lowerCaseFirstLetter() + '", ' + model.name + '.' + propertyNames[i] + '), ';
     }
     code += '\n\t\t};';
     code += '\n\t}';
@@ -193,7 +193,4 @@ function transform() {
 
 String.prototype.lowerCaseFirstLetter = function() {
     return this.charAt(0).toLowerCase() + this.slice(1);
-}
-String.prototype.toUpperCaseFirstLetter = function() {
-    return this.charAt(0).toUpperCase() + this.slice(1);
 }
