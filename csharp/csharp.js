@@ -128,7 +128,7 @@ function transform() {
     code += '\n\t\tvar parameters = new List<SqlParameter>()';
     code += '\n\t\t{';
     for (var i = 0; i < propertyNames.length; i++) {
-        code += '\n\t\t\tnew SqlParameter("@' + propertyNames[i].lowerCaseFirstLetter() + '", ' + model.name + '.' + propertyNames[i] + '), ';
+        code += '\n\t\t\tnew SqlParameter("@' + propertyNames[i].lowerCaseFirstLetter() + '", ' + model.name.lowerCaseFirstLetter() + '.' + propertyNames[i] + '), ';
     }
     code += '\n\t\t};';
     code += '\n\t}';
@@ -152,7 +152,7 @@ function transform() {
     code += '\n\t\tvar parameters = new List<SqlParameter>()';
     code += '\n\t\t{';
     for (var i = 0; i < propertyNames.length; i++) {
-        code += '\n\t\t\tnew SqlParameter("@' + propertyNames[i].lowerCaseFirstLetter() + '", ' + model.name + '.' + propertyNames[i] + '), ';
+        code += '\n\t\t\tnew SqlParameter("@' + propertyNames[i].lowerCaseFirstLetter() + '", ' + model.name.lowerCaseFirstLetter() + '.' + propertyNames[i] + '), ';
     }
     code += '\n\t\t};';
     code += '\n\t}';
