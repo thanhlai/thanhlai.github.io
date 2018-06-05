@@ -62,37 +62,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
-		<script>
-		$(document).ready(function() {
-			loadJSON('projects.json', function(response) {
-			    console.log(JSON.parse(response));
-				var projects = JSON.parse(response);
-				// render projects
-				for (var i = 0; i < projects.length; i++) {
-					var project = '<div class="col-lg-4 col-sm-6" style="text-align: center;">';
-					project += '<img class="img-responsive" style="margin:0 auto;" width="64" src="' + projects[i].logo + '">';
-					project += '<h3>' + projects[i].name + ' <small><a href="' + projects[i].url + '" target="_blank"><sup><i class="ion-link"></i></sup></a></small> </h3>';
-					project += '<p>' +  projects[i].description + '</p>';
-					project += '</div>';
-					
-					$('#projects').append(project);
-				}
-				
-			 });
-			 function loadJSON(file, callback) {   
-			    var xobj = new XMLHttpRequest();
-				xobj.overrideMimeType("application/json");
-			    xobj.open('GET', file, true);
-			    xobj.onreadystatechange = function () {
-				  if (xobj.readyState == 4 && xobj.status == "200") {
-				    callback(xobj.responseText);
-				  }
-			    };
-			    xobj.send(null);  
-			 }
-		});
-
-		</script>
+		<script src="index.js"></script>
 			
 	</body>
 </html>
