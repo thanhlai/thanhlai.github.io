@@ -1,6 +1,5 @@
 $(document).ready(function() {
 loadJSON('projects.json', function(response) {
-    console.log(JSON.parse(response));
   var projects = JSON.parse(response);
   // render projects
   for (var i = 0; i < projects.length; i++) {
