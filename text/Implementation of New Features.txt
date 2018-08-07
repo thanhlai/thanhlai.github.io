@@ -1,0 +1,7 @@
+[PRODUCT] has powerful and flexible extension APIs. 
+If you would like to see a particular feature implemented, it may be possible to develop the feature as a plugin. 
+Documentation regarding the plugin APIs is available. 
+Advice on extending either product may be available on the user mailing-lists, or on the [COMPANY] Community.
+
+If you require significant customisations, you may wish to get in touch with our partners. 
+They specialise in extending [COMPANY] products and can do this work for you. If you are interested, please contact us.
