@@ -1,0 +1,6 @@
+Hello [CUSTOMER],
+
+Thank you for your email. Someone from our team will be contacting you to answer your question. 
+
+Kind regards,
+[ME] 
