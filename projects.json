@@ -8,7 +8,7 @@
 },
 {
   "name" : "cherry",
-  "description": "design & build x86 Windows applications.",
+  "description": "design & build x86 Windows applications online.",
   "logo": "cherry.png",
   "url": "/cherry",
   "date" : "June 2017"
@@ -22,21 +22,21 @@
 },
 {
   "name" : "csharp",
-  "description": "C# CRUD code generation",
+  "description": "C# CRUD code generation.",
   "logo": "csharp.png",
   "url": "/csharp",
   "date" : "July 2017"
 },
 {
   "name": "papillon",
-  "description": "MSN.com modern clone",
+  "description": "MSN.com modern clone.",
   "logo": "papillon.png",
   "url": "https://papillonnews.azurewebsites.net/",
   "date": "May 2018"
 },
 {
 "name": "cross",
-"description": "Japanese river crossing game",
+"description": "Japanese river crossing game.",
 "logo": "Japan.png",
 "url": "/cross",
 "date": "September 2018"
