@@ -33,5 +33,12 @@
   "logo": "papillon.png",
   "url": "https://papillonnews.azurewebsites.net/",
   "date": "May 2018"
+},
+{
+"name": "cross",
+"description": "Japanese river crossing game",
+"logo": "japan.png",
+"url": "/cross",
+"date": "September 2018"
 }
 ]
