@@ -49,7 +49,8 @@
 
                 <div class="row">
                     <div class="input-field col s12 center">
-                        <button onclick="generate()" class="btn waves-effect waves-light">Generate</button>
+                        <button type="button" onclick="generate()"
+                            class="btn waves-effect waves-light">Generate</button>
                     </div>
                 </div>
             </form>
@@ -69,7 +70,8 @@
             <h2 id="activationKey" style="letter-spacing: 4px; color: #4885ed"></h2>
         </div>
         <div class="modal-footer">
-            <a href="#!" class="modal-action waves-effect waves-green btn-flat" onclick="copyToClipboard('#activationKey')">  <span class="tooltiptext" id="copyTooltip"></span></a>
+            <a href="#!" class="modal-action waves-effect waves-green btn-flat"
+                onclick="copyToClipboard('#activationKey')"> <span class="tooltiptext" id="copyTooltip"></span></a>
             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
         </div>
     </div>
