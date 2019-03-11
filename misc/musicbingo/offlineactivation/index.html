@@ -102,7 +102,7 @@
             var numberOfGames = $('#numberOfGames').val()
 
             // verify input
-            if (!numberOfGames || parseInt(numberOfGames) == 0 || !redemptionDate || macaddress.length() != 6) {
+            if (!numberOfGames || parseInt(numberOfGames) == 0 || !redemptionDate || macaddress.length != 6) {
                 Materialize.toast('Invalid information. Please complete all input fields and try again.', 4000)
                 if (parseInt(numberOfGames) == 0) {
                     Materialize.toast('Maximum number of games cannot be zero.', 4000)
