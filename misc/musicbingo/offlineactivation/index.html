@@ -26,12 +26,28 @@
             <div class="col s12">
                 <div class="section">
                     <h5>Activation Info</h5>
+                    
+                    <!--
                     <div class="row">
                         <div class="input-field col s12">
                             <input id="macaddress" type="text" />
                             <label for="macaddress">Device ID</label>
                         </div>
                     </div>
+                    -->
+                    
+                     <div class="row">
+                        <div class="col s12">
+                          <div class="row">
+                            <div class="input-field col s12">
+                              <i class="material-icons prefix">textsms</i>
+                              <input type="text" id="macaddress" class="autocomplete">
+                              <label for="autocomplete-input">Device</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    
                     <div class="row">
                         <div class="input-field col s12">
                             <input id="redemptionDate" type="date" class="datepicker" />
@@ -205,6 +221,19 @@
             $("#copyTooltip").html("Copied " + $(element).text())
             $temp.remove()
         }
+        
+        
+        
+ $(document).ready(function(){
+    $('#macaddress').autocomplete({
+      data: {
+        "Apple": null,
+        "Microsoft": null,
+        "Google": 'https://placehold.it/250x250'
+      },
+    })
+  })
+        
 
     </script>
 </body>
