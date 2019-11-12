@@ -112,7 +112,8 @@
         function generate() {
             var plain = ""
             // input
-            var macaddress = $('#macaddress').val().toUpperCase().split(':')
+            var macaddress = $('#macaddress').val().split(delimiter)[0]
+            macaddress = macaddress.toUpperCase().split(':')
             var redemptionDate = $('#redemptionDate').val()
             var numberOfGames = $('#numberOfGames').val()
 
@@ -222,7 +223,7 @@
         }
         
         
-        
+let delimiter = ' | '
 $(document).ready(function() {
   $(function() {
     $.ajax({
@@ -234,7 +235,7 @@ $(document).ready(function() {
         var parsedJSON = JSON.parse(response)
         var devices = []
         for (var i = 0; i < parsedJSON.length; i++) {
-           devices.push(parsedJSON[i].name + ' | ' + parsedJSON[i].deviceID)
+           devices.push(parsedJSON[i].deviceID + delimiter + parsedJSON[i].name)
         }
         $('#macaddress').autocomplete({
           data: devices,
