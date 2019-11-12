@@ -228,6 +228,7 @@ $(document).ready(function() {
     $.ajax({
       type: 'GET',
       url: 'https://musicbingoweb.azurewebsites.net/api/device',
+      dataType: 'jsonp',
       success: function(response) {
           
         var parsedJSON = JSON.parse(response)
