@@ -20,13 +20,13 @@
     </script>
 
     <div id="formularioEdicao" class="container">
-        <h3 class="main-title center">Music Bingo On-premise Activation Keygen v0.0.3
+        <h3 class="main-title center">Music Bingo On-premise Activation Keygen v0.0.5
         </h3>
         <div class="row">
             <div class="col s12">
                 <div class="section">
                     <h5>Activation Info</h5>
-                    
+
                     <!--
                     <div class="row">
                         <div class="input-field col s12">
@@ -35,18 +35,18 @@
                         </div>
                     </div>
                     -->
-                    
-                     <div class="row">
+
+                    <div class="row">
                         <div class="col s12">
-                          <div class="row">
-                            <div class="input-field col s12">
-                              <input type="text" id="macaddress" class="autocomplete">
-                              <label for="autocomplete-input">Device Name or ID</label>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input type="text" id="macaddress" class="autocomplete">
+                                    <label for="autocomplete-input">Device Name or ID</label>
+                                </div>
                             </div>
-                          </div>
                         </div>
-                      </div>
-                    
+                    </div>
+
                     <div class="row">
                         <div class="input-field col s12">
                             <input id="redemptionDate" type="date" class="datepicker" />
@@ -64,15 +64,13 @@
 
                 <div class="row">
                     <div class="input-field col s12 center">
-                        <button type="button" onclick="generate()"
-                            class="btn waves-effect waves-light">Generate</button>
+                        <button type="button" onclick="generate()" class="btn waves-effect waves-light">Generate</button>
                     </div>
                 </div>
             </div>
 
-            <p>*: is the only day in which the user will be able to activate their key. Upon activation, the user's
-                device date will be validated against the encrypted checksum on the generated key for security
-                measurement.</p>
+            <p>*: is the only day in which the user will be able to activate their key. Upon activation, the user's device date will be validated against the encrypted checksum on the generated key for security measurement.
+            </p>
             <p>**: the maximum allowed of 999 games per key.</p>
         </div>
 
@@ -85,33 +83,34 @@
             <h2 id="activationKey" style="letter-spacing: 4px; color: #4885ed"></h2>
         </div>
         <div class="modal-footer">
-            <a href="#!" class="modal-action waves-effect waves-green btn-flat"
-                onclick="copyToClipboard('#activationKey')"> <span class="tooltiptext" id="copyTooltip"></span></a>
+            <a href="#!" class="modal-action waves-effect waves-green btn-flat" onclick="copyToClipboard('#activationKey')"> <span class="tooltiptext" id="copyTooltip"></span></a>
             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
         </div>
     </div>
 
-
     <script>
-        $(function () {
+        $(function() {
 
-            $(document).ready(function () {
+            $(document).ready(function() {
                 $('.datepicker').pickadate({
                     selectMonths: true,
                     selectYears: 20
                 })
+
+                $('.datepicker').on('mousedown',function(event){ event.preventDefault() })
+
                 $('select').material_select()
 
                 $('.modal').modal()
 
             });
-        })</script>
+        })
+    </script>
 
     <script>
-
         function generate() {
             var plain = ""
-            // input
+                // input
             var macaddress = $('#macaddress').val().split(delimiter)[0]
             macaddress = macaddress.toUpperCase().split(':')
             var redemptionDate = $('#redemptionDate').val()
@@ -125,7 +124,6 @@
                 }
                 return
             }
-
 
             // macaddress serial part
             var serialParts = macaddress.slice(Math.max(macaddress.length - 3, 1))
@@ -176,9 +174,7 @@
             return result.join('')
         }
 
-
         // [1st last # of macaddress][# of games][# of games][# of games][dd][dd][mm][mm][2nd last bit of # of macaddress][which serial part of macaddress]
-
 
         function decrypt(key) {
 
@@ -208,7 +204,6 @@
             return result.join('')
         }
 
-
         function getDigit(number, n) {
             return Math.floor((number / Math.pow(10, n - 1)) % 10)
         }
@@ -221,36 +216,29 @@
             $("#copyTooltip").html("Copied " + $(element).text())
             $temp.remove()
         }
-        
-        
-let delimiter = ' | '
-$(document).ready(function() {
-  $(function() {
-    $.ajax({
-      type: 'GET',
-      url: 'https://musicbingoweb.azurewebsites.net/api/device',
-      dataType: 'jsonp',
-      success: function(response) {
-          
-          console.log(response)
-        var parsedJSON = JSON.parse(JSON.stringify(response))
-        var devices = []
-        for (var i = 0; i < parsedJSON.length; i++) {
-           devices.push(parsedJSON[i].deviceID + delimiter + parsedJSON[i].name)
-        }
-        
-          console.log(devices)
-          
-        $('#macaddress').autocomplete({
-          data: devices,
-        })
-          
-      }
-    })
-  })
-})
-        
 
+        let delimiter = ' | '
+        $(document).ready(function() {
+            $(function() {
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/device',
+                    success: function(response) {
+
+                        var parsedJSON = response
+                        var devices = {}
+                        for (var i = 0; i < parsedJSON.length; i++) {
+                            devices[parsedJSON[i].deviceID  + delimiter + parsedJSON[i].name] = ''
+                        }
+
+                        $('#macaddress').autocomplete({
+                            data: devices,
+                        })
+
+                    }
+                })
+            })
+        })
     </script>
 </body>
 
