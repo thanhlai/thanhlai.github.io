@@ -233,7 +233,7 @@ $(document).ready(function() {
       success: function(response) {
           
           console.log(response)
-        var parsedJSON = JSON.parse(response)
+        var parsedJSON = JSON.parse(JSON.stringify(response))
         var devices = []
         for (var i = 0; i < parsedJSON.length; i++) {
            devices.push(parsedJSON[i].deviceID + delimiter + parsedJSON[i].name)
