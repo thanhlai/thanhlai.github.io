@@ -232,6 +232,7 @@ $(document).ready(function() {
       dataType: 'jsonp',
       success: function(response) {
           
+          console.log(response)
         var parsedJSON = JSON.parse(response)
         var devices = []
         for (var i = 0; i < parsedJSON.length; i++) {
