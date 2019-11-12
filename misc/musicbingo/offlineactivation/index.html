@@ -40,9 +40,8 @@
                         <div class="col s12">
                           <div class="row">
                             <div class="input-field col s12">
-                              <i class="material-icons prefix">textsms</i>
                               <input type="text" id="macaddress" class="autocomplete">
-                              <label for="autocomplete-input">Device</label>
+                              <label for="autocomplete-input">Device Name or ID</label>
                             </div>
                           </div>
                         </div>
@@ -224,15 +223,26 @@
         
         
         
- $(document).ready(function(){
-    $('#macaddress').autocomplete({
-      data: {
-        "Apple": null,
-        "Microsoft": null,
-        "Google": 'https://placehold.it/250x250'
-      },
+$(document).ready(function() {
+  $(function() {
+    $.ajax({
+      type: 'GET',
+      url: 'https://musicbingoweb.azurewebsites.net/api/device',
+      success: function(response) {
+          
+        var parsedJSON = JSON.parse(response)
+        var devices = []
+        for (var i = 0; i < parsedJSON.length; i++) {
+           devices.push(parsedJSON[i].name + ' | ' + parsedJSON[i].deviceID)
+        }
+        $('#macaddress').autocomplete({
+          data: devices,
+        })
+          
+      }
     })
   })
+})
         
 
     </script>
